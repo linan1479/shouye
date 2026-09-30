@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>语文资料汇总平台</title>
+
+    <!-- ==================== 网页图标 favicon ==================== -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23072a33'/%3E%3Cstop offset='0.5' stop-color='%230b4f5d'/%3E%3Cstop offset='1' stop-color='%2317a7b8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='url(%23g)'/%3E%3Crect x='1' y='1' width='98' height='98' rx='21' fill='none' stroke='%237ee0f0' stroke-opacity='0.35' stroke-width='2'/%3E%3Ctext x='50' y='72' font-family='PingFang SC,Hiragino Sans GB,Microsoft YaHei,STKaiti,serif' font-size='64' font-weight='bold' fill='%237ee0f0' text-anchor='middle'%3E语%3C/text%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23072a33'/%3E%3Cstop offset='0.5' stop-color='%230b4f5d'/%3E%3Cstop offset='1' stop-color='%2317a7b8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='url(%23g)'/%3E%3Ctext x='50' y='72' font-family='PingFang SC,Hiragino Sans GB,Microsoft YaHei,STKaiti,serif' font-size='64' font-weight='bold' fill='%237ee0f0' text-anchor='middle'%3E语%3C/text%3E%3C/svg%3E">
+
     <style>
         @font-face {
             font-family: 'ZiHunBianTaoTi';
@@ -28,13 +33,16 @@
             font-weight: 700;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
         body {
             min-height: 100vh;
             background: linear-gradient(180deg, #03181f 0%, #052a34 12%, #083b47 28%, #0b4f5d 45%, #0e6b7a 65%, #128b9b 82%, #17a7b8 100%);
             background-attachment: fixed;
             font-family: 'HarmonyOS Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             color: #eef2f9;
-            padding: 2rem 1.5rem 1.5rem;
+            padding: 6rem 1.5rem 1.5rem;
             display: flex; flex-direction: column; align-items: center;
             position: relative; overflow-x: hidden;
         }
@@ -47,6 +55,121 @@
                 linear-gradient(180deg, rgba(0, 8, 14, 0.85) 0%, rgba(0, 20, 30, 0.45) 22%, transparent 45%);
             pointer-events: none; z-index: 0;
         }
+
+        /* ==================== 顶部导航栏 ==================== */
+        .navbar {
+            position: fixed;
+            top: 0.9rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            width: auto;
+            max-width: calc(100% - 2rem);
+            pointer-events: none;
+        }
+        .navbar-inner {
+            pointer-events: auto;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            padding: 0.45rem;
+            border-radius: 50px;
+            background: rgba(6, 28, 38, 0.62);
+            backdrop-filter: blur(22px) saturate(190%);
+            -webkit-backdrop-filter: blur(22px) saturate(190%);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+        }
+        .navbar.scrolled .navbar-inner {
+            background: rgba(6, 28, 38, 0.82);
+            border-color: rgba(255, 255, 255, 0.18);
+            box-shadow: 0 14px 34px -10px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        /* 液态玻璃滑动指示器 — Apple 风格顺滑缓动 */
+        .nav-indicator {
+            position: absolute;
+            top: 0.45rem;
+            bottom: 0.45rem;
+            left: 0;
+            width: 0;
+            border-radius: 40px;
+            background: linear-gradient(135deg, rgba(120, 220, 240, 0.34), rgba(120, 220, 240, 0.14));
+            border: 1px solid rgba(120, 220, 240, 0.42);
+            box-shadow:
+                0 6px 20px -6px rgba(120, 220, 240, 0.55),
+                inset 0 1px 0 rgba(255, 255, 255, 0.25),
+                inset 0 -1px 0 rgba(120, 220, 240, 0.12);
+            pointer-events: none;
+            z-index: 0;
+            /* Apple 风格缓动：快速起步，平滑收尾，无回弹 */
+            transition:
+                left 0.42s cubic-bezier(0.32, 0.72, 0, 1),
+                width 0.42s cubic-bezier(0.32, 0.72, 0, 1);
+        }
+        .nav-indicator::after {
+            content: '';
+            position: absolute;
+            inset: 2px 6px auto 6px;
+            height: 40%;
+            border-radius: 40px 40px 20px 20px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.22), transparent);
+            pointer-events: none;
+        }
+        .nav-indicator.no-transition {
+            transition: none;
+        }
+
+        .navbar a {
+            position: relative;
+            z-index: 1;
+            flex: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45rem;
+            padding: 0.6rem 1.3rem;
+            border-radius: 40px;
+            color: #b8d8e0;
+            font-family: 'HarmonyOS Sans', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 500;
+            letter-spacing: 0.8px;
+            text-decoration: none;
+            white-space: nowrap;
+            background: transparent;
+            border: 1px solid transparent;
+            transition: color 0.3s ease;
+        }
+        .navbar a .nav-icon {
+            font-size: 1rem;
+            line-height: 1;
+            opacity: 0.85;
+            transition: transform 0.3s ease;
+        }
+        .navbar a:hover {
+            color: #ffffff;
+        }
+        .navbar a:hover .nav-icon {
+            transform: scale(1.15);
+        }
+        .navbar a.active {
+            color: #ffffff;
+        }
+        .navbar a.active .nav-icon {
+            opacity: 1;
+        }
+
+        /* ==================== 锚点滚动偏移 ==================== */
+        #home, #core, #poem, #changelog, #feedback {
+            scroll-margin-top: 6rem;
+        }
+
         .page {
             max-width: 1200px; width: 100%;
             position: relative; z-index: 1;
@@ -130,7 +253,7 @@
             text-shadow: 0 0 28px rgba(255, 220, 150, 0.9);
         }
 
-        /* ==================== 核心板块（3 + 1 布局） ==================== */
+        /* ==================== 核心板块 ==================== */
         .core-sections {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -168,7 +291,6 @@
         .core-btn:hover:not(.disabled) { background: rgba(255, 255, 255, 0.2); border-color: rgba(255, 255, 255, 0.4); transform: translateY(-2px); letter-spacing: 1.5px; }
         .core-btn.disabled { opacity: 0.45; cursor: not-allowed; pointer-events: none; background: rgba(255, 255, 255, 0.04); color: rgba(255, 255, 255, 0.6); }
 
-        /* 横跨整行的卡片（更多功能上线中） */
         .core-card-wide {
             grid-column: 1 / -1;
             flex-direction: row;
@@ -196,7 +318,6 @@
             font-size: 0.9rem;
             margin-bottom: 0;
         }
-        /* 尾随的小点点动画 */
         .core-card-wide .dots {
             display: inline-flex;
             gap: 0.35rem;
@@ -296,10 +417,6 @@
         .changelog-section.expanded .changelog-item:nth-child(4) { transition-delay: 0.34s, 0.34s, 0s, 0s; }
         .changelog-section.expanded .changelog-item:nth-child(5) { transition-delay: 0.40s, 0.40s, 0s, 0s; }
         .changelog-section.expanded .changelog-item:nth-child(6) { transition-delay: 0.46s, 0.46s, 0s, 0s; }
-        .changelog-section.expanded .changelog-item:nth-child(7) { transition-delay: 0.52s, 0.52s, 0s, 0s; }
-        .changelog-section.expanded .changelog-item:nth-child(8) { transition-delay: 0.58s, 0.58s, 0s, 0s; }
-        .changelog-section.expanded .changelog-item:nth-child(9) { transition-delay: 0.64s, 0.64s, 0s, 0s; }
-        .changelog-section.expanded .changelog-item:nth-child(10) { transition-delay: 0.70s, 0.70s, 0s, 0s; }
         .changelog-item:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.14); }
 
         .changelog-item-head { display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; padding-bottom: 0.45rem; border-bottom: 1px dashed rgba(255, 255, 255, 0.08); }
@@ -345,7 +462,12 @@
             .core-title { font-size: 1.1rem; }
         }
         @media (max-width: 700px) {
-            body { padding: 1.2rem 0.9rem 1rem; }
+            body { padding: 5.5rem 0.9rem 1rem; }
+            .navbar { top: 0.7rem; }
+            .navbar-inner { padding: 0.35rem; }
+            .nav-indicator { top: 0.35rem; bottom: 0.35rem; }
+            .navbar a { padding: 0.5rem 0.8rem; font-size: 0.8rem; letter-spacing: 0.3px; gap: 0.3rem; }
+            .navbar a .nav-icon { font-size: 0.88rem; }
             .core-sections { grid-template-columns: 1fr; gap: 1.2rem; margin-top: 1.2rem; }
             .core-card { padding: 2rem 1.5rem 1.8rem; }
             .core-card-wide { flex-direction: column; text-align: center; padding: 1.8rem 1.5rem; gap: 0.7rem; }
@@ -371,6 +493,8 @@
             .gaokao-countdown .countdown-days .num { font-size: 3.2rem; }
         }
         @media (max-width: 420px) {
+            .navbar a { padding: 0.45rem 0.55rem; font-size: 0.72rem; gap: 0.2rem; }
+            .navbar a .nav-icon { font-size: 0.8rem; }
             .gaokao-countdown { gap: 0.4rem; }
             .gaokao-countdown .countdown-icon { font-size: 1.5rem; }
             .gaokao-countdown .countdown-label { font-size: 1.15rem; letter-spacing: 2px; }
@@ -381,7 +505,29 @@
 </head>
 <body>
 
-    <div class="page">
+    <!-- ==================== 顶部导航栏 ==================== -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-inner" id="navInner">
+            <div class="nav-indicator no-transition" id="navIndicator"></div>
+            <a href="#home" class="nav-link active" data-target="home">
+                <span class="nav-icon">🏠</span> 首页
+            </a>
+            <a href="#core" class="nav-link" data-target="core">
+                <span class="nav-icon">📚</span> 题库
+            </a>
+            <a href="#poem" class="nav-link" data-target="poem">
+                <span class="nav-icon">📖</span> 今日背诵
+            </a>
+            <a href="#changelog" class="nav-link" data-target="changelog">
+                <span class="nav-icon">📋</span> 更新日志
+            </a>
+            <a href="#feedback" class="nav-link" data-target="feedback">
+                <span class="nav-icon">💬</span> 反馈
+            </a>
+        </div>
+    </nav>
+
+    <div class="page" id="home">
         <div class="main-title">
             <h1>语文资料汇总平台</h1>
         </div>
@@ -395,13 +541,13 @@
             </div>
         </div>
 
-        <!-- 核心板块：3 个卡片 + 1 个横跨整行 -->
-        <div class="core-sections">
+        <!-- 核心板块 -->
+        <div class="core-sections" id="core">
             <div class="core-card">
                 <div class="core-icon">📖</div>
                 <div class="core-title">语文课下注释测试</div>
                 <div class="core-sub">课文注释 · 随堂检测</div>
-                <a href="https://linan1479.github.io/kwjy/" class="core-btn" target="_blank" rel="noopener noreferrer">进入测试 →</a>
+                <a href="https://mz09.dpdns.org/" class="core-btn" target="_blank" rel="noopener noreferrer">进入测试 →</a>
             </div>
             <div class="core-card">
                 <div class="core-icon">✍️</div>
@@ -416,7 +562,6 @@
                 <a href="https://linan1479.github.io/ljmxtk/" class="core-btn" target="_blank" rel="noopener noreferrer">进入题库 →</a>
             </div>
 
-            <!-- 横跨整行：更多功能上线中 -->
             <div class="core-card core-card-wide">
                 <div class="core-icon">🚀</div>
                 <div class="core-card-wide-text">
@@ -430,7 +575,7 @@
         </div>
 
         <!-- 每日高考古诗词背诵 -->
-        <div class="glass-card poem-section">
+        <div class="glass-card poem-section" id="poem">
             <div class="poem-header">
                 <div class="poem-header-left">
                     <span>📖</span> 每日高考古诗词背诵
@@ -449,8 +594,8 @@
             </div>
         </div>
 
-        <!-- ==================== 可折叠更新日志 ==================== -->
-        <div class="glass-card changelog-section expanded" id="changelogSection">
+        <!-- ==================== 可折叠更新日志（精简版） ==================== -->
+        <div class="glass-card changelog-section expanded" id="changelog">
             <div class="changelog-header" id="changelogHeader" role="button" tabindex="0" aria-expanded="true">
                 <div class="changelog-header-left">
                     <span>📋</span> 更新日志
@@ -463,11 +608,45 @@
 
                         <li class="changelog-item">
                             <div class="changelog-item-head">
+                                <span class="changelog-version">v1.3.4</span>
+                                <span class="changelog-date">2026-10-01</span>
+                            </div>
+                            <div class="changelog-lines">
+                                <div class="changelog-line"><span class="line-icon">✨</span><span><strong>交互优化：</strong>导航栏切换动效改为 Apple 风格顺滑曲线，点击滑块即时跟进，滚动过程不再卡顿</span></div>
+                                <div class="changelog-line"><span class="line-icon">📐</span><span><strong>导航栏收窄：</strong>导航胶囊改为内容自适应，长度适中，观感更精致</span></div>
+                                <div class="changelog-line"><span class="line-icon">📝</span><span><strong>更新日志精简：</strong>移除已废弃与未实际上线的历史条目，只保留有效版本记录</span></div>
+                            </div>
+                        </li>
+
+                        <li class="changelog-item">
+                            <div class="changelog-item-head">
+                                <span class="changelog-version">v1.3.3</span>
+                                <span class="changelog-date">2026-10-01</span>
+                            </div>
+                            <div class="changelog-lines">
+                                <div class="changelog-line"><span class="line-icon">💧</span><span><strong>导航栏液态玻璃效果：</strong>导航切换采用 iOS 26 风格的滑动指示器，选中项由液态玻璃高光块平滑跟随</span></div>
+                                <div class="changelog-line"><span class="line-icon">🎨</span><span><strong>网页图标：</strong>新增 SVG favicon 与 Apple Touch Icon，青色渐变圆角方块 + 「语」字，与平台视觉统一</span></div>
+                                <div class="changelog-line"><span class="line-icon">📑</span><span><strong>标签标题：</strong>网页标签标题简化为「语文资料汇总平台」，与页面主标题保持一致</span></div>
+                            </div>
+                        </li>
+
+                        <li class="changelog-item">
+                            <div class="changelog-item-head">
+                                <span class="changelog-version">v1.3.2</span>
+                                <span class="changelog-date">2026-10-01</span>
+                            </div>
+                            <div class="changelog-lines">
+                                <div class="changelog-line"><span class="line-icon">🧭</span><span><strong>顶部导航栏：</strong>页面顶部新增居中胶囊导航栏，含首页、题库、今日背诵、更新日志、反馈五个入口，支持平滑滚动与滚动高亮</span></div>
+                            </div>
+                        </li>
+
+                        <li class="changelog-item">
+                            <div class="changelog-item-head">
                                 <span class="changelog-version">v1.3.1</span>
                                 <span class="changelog-date">2026-10-01</span>
                             </div>
                             <div class="changelog-lines">
-                                <div class="changelog-line"><span class="line-icon">📚</span><span><strong>新增理解默写题库：</strong>「理解默写题库（beta）」上线，提供海量题库强化训练</span></div>
+                                <div class="changelog-line"><span class="line-icon">📚</span><span><strong>新增理解默写题库：</strong>预留入口替换为「理解默写题库（beta）」，提供海量题库强化训练，链接 linan1479.github.io/ljmxtk</span></div>
                                 <div class="changelog-line"><span class="line-icon">🚀</span><span><strong>新增更多功能栏目：</strong>三个卡片下方新增横跨整行的「更多功能上线中」栏目，附小圆点呼吸动画提示</span></div>
                                 <div class="changelog-line"><span class="line-icon">🎨</span><span><strong>栏目图标优化：</strong>重新分配三个核心卡片的图标，课下注释改用 📖、理解性默写保留 ✍️、题库使用 📚，风格更统一</span></div>
                             </div>
@@ -488,98 +667,12 @@
 
                         <li class="changelog-item">
                             <div class="changelog-item-head">
-                                <span class="changelog-version">v1.2.1</span>
-                                <span class="changelog-date">2026-09-27 00:30</span>
-                            </div>
-                            <div class="changelog-lines">
-                                <div class="changelog-line"><span class="line-icon">🖥️</span><span><strong>问题修复：</strong>修复网页元素报错问题</span></div>
-                                <div class="changelog-line"><span class="line-icon">📱</span><span><strong>移动端判定优化：</strong>移除窗口宽度判断，仅通过 User-Agent 识别，避免电脑端缩窗被误判为手机而屏蔽页面</span></div>
-                                <div class="changelog-line"><span class="line-icon">📝</span><span><strong>更新日志稳健性：</strong>修复折叠 / 展开失效问题</span></div>
-                            </div>
-                        </li>
-
-                        <li class="changelog-item">
-                            <div class="changelog-item-head">
-                                <span class="changelog-version">v1.2.0</span>
-                                <span class="changelog-date">2026-09-25 22:00</span>
-                            </div>
-                            <div class="changelog-lines">
-                                <div class="changelog-line"><span class="line-icon">🌗</span><span><strong>主题切换：</strong>新增右上角亮 / 暗模式切换按钮，一键切换全局配色</span></div>
-                                <div class="changelog-line"><span class="line-icon">🌙</span><span><strong>暗色设计：</strong>全新设计暗色主题，包括深色玻璃卡片、深紫渐变背景、暗色按钮等</span></div>
-                                <div class="changelog-line"><span class="line-icon">💾</span><span><strong>偏好记忆：</strong>使用 localStorage 记住用户主题选择，刷新后仍保持</span></div>
-                                <div class="changelog-line"><span class="line-icon">🖥️</span><span><strong>跟随系统：</strong>网页默认跟随系统亮 / 暗模式设置，用户手动切换后仍会记住选择</span></div>
-                                <div class="changelog-line"><span class="line-icon">🎨</span><span><strong>按钮统一：</strong>GitHub 访问按钮在暗色模式下调整为与“发送邮件”按钮一致的橙色</span></div>
-                                <div class="changelog-line"><span class="line-icon">🔧</span><span><strong>过渡优化：</strong>修复暗色模式下背景图与卡片区域交界处的硬边问题</span></div>
-                            </div>
-                        </li>
-
-                        <li class="changelog-item">
-                            <div class="changelog-item-head">
-                                <span class="changelog-version">v1.1.8</span>
-                                <span class="changelog-date">2026-09-25 21:50</span>
-                            </div>
-                            <div class="changelog-lines">
-                                <div class="changelog-line"><span class="line-icon">✨</span><span><strong>视觉升级：</strong>全站卡片应用鸿蒙玻璃拟态效果（backdrop-filter 模糊 + 半透明白底 + 高光边框）</span></div>
-                                <div class="changelog-line"><span class="line-icon">🖱️</span><span><strong>鼠标光源：</strong>新增鼠标移动跟随的光源效果，悬停时卡片上有柔和光晕跟随</span></div>
-                                <div class="changelog-line"><span class="line-icon">🪟</span><span><strong>卡片质感：</strong>三个功能卡片、反馈长条、更新日志、GitHub 卡片均加入玻璃质感与悬停上浮效果</span></div>
-                                <div class="changelog-line"><span class="line-icon">🔧</span><span><strong>兼容性优化：</strong>补充 -webkit-backdrop-filter 属性，兼容 Safari 浏览器</span></div>
-                            </div>
-                        </li>
-
-                        <li class="changelog-item">
-                            <div class="changelog-item-head">
-                                <span class="changelog-version">v1.1.5</span>
-                                <span class="changelog-date">2026-09-25 21:20</span>
-                            </div>
-                            <div class="changelog-lines">
-                                <div class="changelog-line"><span class="line-icon">📧</span><span><strong>反馈功能上线：</strong>新增反馈区 by e-mail，为了有更好的观看体验</span></div>
-                                <div class="changelog-line"><span class="line-icon">🎨</span><span><strong>视觉优化：</strong>反馈区与页脚加入向上紫色渐变，页面过渡更自然</span></div>
-                                <div class="changelog-line"><span class="line-icon">🎉</span><span><strong>中秋快乐：</strong>祝各位中秋节快乐！</span></div>
-                            </div>
-                        </li>
-
-                        <li class="changelog-item">
-                            <div class="changelog-item-head">
-                                <span class="changelog-version">v1.1.4</span>
-                                <span class="changelog-date">2026-09-25 20:05</span>
-                            </div>
-                            <div class="changelog-lines">
-                                <div class="changelog-line"><span class="line-icon">🛠️</span><span><strong>界面优化：</strong>主标题 75px，小标题 50px 加粗</span></div>
-                                <div class="changelog-line"><span class="line-icon">🖼️</span><span><strong>新增校徽：</strong>新增校徽图片 xiaohui.png，尺寸 80px</span></div>
-                                <div class="changelog-line"><span class="line-icon">⚙️</span><span><strong>功能修复：</strong>修复 waypoints.js 与 jquery.js 版本冲突导致的动效失效问题</span></div>
-                                <div class="changelog-line"><span class="line-icon">📱</span><span><strong>手机端适配：</strong>手机访问自动屏蔽主页，提示“请在电脑端访问”</span></div>
-                                <div class="changelog-line"><span class="line-icon">✨</span><span><strong>动效恢复：</strong>重新实现标题弹出、卡片缓慢上升动画</span></div>
-                            </div>
-                        </li>
-
-                        <li class="changelog-item">
-                            <div class="changelog-item-head">
-                                <span class="changelog-version">v1.1.2</span>
-                                <span class="changelog-date">2026-09-25 19:40</span>
-                            </div>
-                            <div class="changelog-lines">
-                                <div class="changelog-line"><span class="line-icon">🐛</span><span><strong>Bug 修复：</strong>修复移动端“预留入口”被遮挡消失的问题</span></div>
-                            </div>
-                        </li>
-
-                        <li class="changelog-item">
-                            <div class="changelog-item-head">
-                                <span class="changelog-version">v1.1.0</span>
-                                <span class="changelog-date">2026-09-25 19:20</span>
-                            </div>
-                            <div class="changelog-lines">
-                                <div class="changelog-line"><span class="line-icon">✍️</span><span><strong>字体定制：</strong>引入字魂编桃体作为主标题字体，小标题改为微软雅黑</span></div>
-                            </div>
-                        </li>
-
-                        <li class="changelog-item">
-                            <div class="changelog-item-head">
                                 <span class="changelog-version">v1.0.0</span>
-                                <span class="changelog-date">2026-09-22 12:46</span>
+                                <span class="changelog-date">2026-09-22</span>
                             </div>
                             <div class="changelog-lines">
-                                <div class="changelog-line"><span class="line-icon">🎉</span><span><strong>项目初始化：</strong>基于模板搭建“语文资料整理汇总平台”</span></div>
-                                <div class="changelog-line"><span class="line-icon">🏠</span><span><strong>初始架构：</strong>完成主标题、副标题及三个功能入口（理解性默写、课下注释、预留入口）的搭建</span></div>
+                                <div class="changelog-line"><span class="line-icon">🎉</span><span><strong>项目初始化：</strong>基于模板搭建「语文资料整理汇总平台」</span></div>
+                                <div class="changelog-line"><span class="line-icon">🏠</span><span><strong>初始架构：</strong>完成主标题、副标题及三个功能入口的搭建</span></div>
                                 <div class="changelog-line"><span class="line-icon">🔗</span><span><strong>链接配置：</strong>完成相关跳转链接的部署</span></div>
                             </div>
                         </li>
@@ -589,7 +682,7 @@
             </div>
         </div>
 
-        <div class="glass-card feedback-section">
+        <div class="glass-card feedback-section" id="feedback">
             <div class="feedback-header">
                 <span>💬</span> 反馈与建议
             </div>
@@ -683,7 +776,7 @@
 
         // ==================== 更新日志折叠逻辑 ====================
         (function() {
-            var section = document.getElementById('changelogSection');
+            var section = document.getElementById('changelog');
             var header = document.getElementById('changelogHeader');
             if (!section || !header) return;
 
@@ -733,6 +826,123 @@
 
             updateCountdown();
             setInterval(updateCountdown, 60 * 60 * 1000);
+        })();
+
+        // ==================== 导航栏：液态玻璃滑动指示器 ====================
+        (function() {
+            var navbar = document.getElementById('navbar');
+            var navInner = document.getElementById('navInner');
+            var indicator = document.getElementById('navIndicator');
+            var links = document.querySelectorAll('.navbar a.nav-link');
+
+            var sections = [];
+            links.forEach(function(link) {
+                var id = link.getAttribute('data-target');
+                var el = document.getElementById(id);
+                if (el) sections.push({ id: id, el: el, link: link });
+            });
+
+            function moveIndicator(link, animate) {
+                if (!link || !indicator || !navInner) return;
+                if (!animate) {
+                    indicator.classList.add('no-transition');
+                } else {
+                    indicator.classList.remove('no-transition');
+                }
+                var innerRect = navInner.getBoundingClientRect();
+                var linkRect = link.getBoundingClientRect();
+                var left = linkRect.left - innerRect.left;
+                var width = linkRect.width;
+                indicator.style.left = left + 'px';
+                indicator.style.width = width + 'px';
+                if (!animate) {
+                    void indicator.offsetWidth;
+                    setTimeout(function() {
+                        indicator.classList.remove('no-transition');
+                    }, 30);
+                }
+            }
+
+            var currentActive = null;
+            var navigating = false;         // 导航锁定标志
+            var navigatingTimer = null;
+
+            function updateActive() {
+                if (window.scrollY > 20) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+
+                // 导航期间不响应滚动，避免滑块被中途来回拉扯
+                if (navigating) return;
+
+                var scrollPos = window.scrollY + 100;
+                var current = sections[0];
+                for (var i = 0; i < sections.length; i++) {
+                    if (sections[i].el.offsetTop <= scrollPos) {
+                        current = sections[i];
+                    }
+                }
+                if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 10) {
+                    current = sections[sections.length - 1];
+                }
+
+                if (current && current.link && current.link !== currentActive) {
+                    links.forEach(function(l) { l.classList.remove('active'); });
+                    current.link.classList.add('active');
+                    moveIndicator(current.link, true);
+                    currentActive = current.link;
+                }
+            }
+
+            // 点击导航时：立即激活并锁定，等滚动结束再解除
+            links.forEach(function(link) {
+                link.addEventListener('click', function() {
+                    // 立即切换激活状态 + 移动滑块
+                    links.forEach(function(l) { l.classList.remove('active'); });
+                    link.classList.add('active');
+                    moveIndicator(link, true);
+                    currentActive = link;
+
+                    // 锁定 scroll 驱动的更新，防止滑块中途被拉扯
+                    navigating = true;
+                    clearTimeout(navigatingTimer);
+                    navigatingTimer = setTimeout(function() {
+                        navigating = false;
+                        // 解锁后校准一次
+                        updateActive();
+                    }, 900);
+                });
+            });
+
+            function initIndicator() {
+                var activeLink = document.querySelector('.navbar a.nav-link.active');
+                if (activeLink) {
+                    moveIndicator(activeLink, false);
+                    currentActive = activeLink;
+                }
+            }
+
+            if (document.readyState === 'complete') {
+                initIndicator();
+            } else {
+                window.addEventListener('load', initIndicator);
+            }
+
+            if (document.fonts && document.fonts.ready) {
+                document.fonts.ready.then(function() {
+                    var activeLink = document.querySelector('.navbar a.nav-link.active');
+                    if (activeLink) moveIndicator(activeLink, false);
+                });
+            }
+
+            window.addEventListener('scroll', updateActive, { passive: true });
+            window.addEventListener('resize', function() {
+                var activeLink = document.querySelector('.navbar a.nav-link.active');
+                if (activeLink) moveIndicator(activeLink, false);
+            });
+            updateActive();
         })();
     </script>
 </body>
