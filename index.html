@@ -1,769 +1,663 @@
-<!doctype html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="utf-8">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>语文资料整理汇总平台</title>
-    <meta name="description" content="语文课下注释与理解性默写资源汇总平台">
-    <meta name="keywords" content="语文,课下注释,理解性默写">
-    <link rel="shortcut icon" href="./images/favicon.png">
-    
-    <link rel="stylesheet" href="./css/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/font-awesome.css">
-    <link rel="stylesheet" href="./css/templatemo-softy-pinko.css">
-    <link rel="stylesheet" href="./css/plugins.css">
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/orange.css">
-    <link rel="stylesheet" href="./css/fonts/thicccboi.css">
-    
+    <title>语文资料汇总平台 · 青韵深顶</title>
     <style>
-      @font-face {
-        font-family: 'ZiHunBianTaoTi';
-        src: url('./css/fonts/ZiHunBianTaoTi-2.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-        font-display: swap;
-      }
+        @font-face {
+            font-family: 'ZiHunBianTaoTi';
+            src: url('ZiHunBianTaoTi-2.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'HarmonyOS Sans';
+            src: local('HarmonyOS Sans'), local('HarmonyOS_Sans');
+            font-weight: 400;
+        }
+        @font-face {
+            font-family: 'HarmonyOS Sans';
+            src: local('HarmonyOS Sans Medium'), local('HarmonyOS_Sans_Medium');
+            font-weight: 500;
+        }
+        @font-face {
+            font-family: 'HarmonyOS Sans';
+            src: local('HarmonyOS Sans Bold'), local('HarmonyOS_Sans_Bold');
+            font-weight: 700;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            min-height: 100vh;
+            background: linear-gradient(180deg, #03181f 0%, #052a34 12%, #083b47 28%, #0b4f5d 45%, #0e6b7a 65%, #128b9b 82%, #17a7b8 100%);
+            background-attachment: fixed;
+            font-family: 'HarmonyOS Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #eef2f9;
+            padding: 2rem 1.5rem 1.5rem;
+            display: flex; flex-direction: column; align-items: center;
+            position: relative; overflow-x: hidden;
+        }
+        body::before {
+            content: '';
+            position: fixed; inset: 0;
+            background:
+                radial-gradient(circle at 15% 20%, rgba(0, 40, 55, 0.7) 0%, transparent 55%),
+                radial-gradient(circle at 85% 70%, rgba(0, 60, 80, 0.45) 0%, transparent 55%),
+                linear-gradient(180deg, rgba(0, 8, 14, 0.85) 0%, rgba(0, 20, 30, 0.45) 22%, transparent 45%);
+            pointer-events: none; z-index: 0;
+        }
+        .page {
+            max-width: 1200px; width: 100%;
+            position: relative; z-index: 1;
+            display: flex; flex-direction: column; gap: 2.2rem;
+        }
+        .main-title { text-align: center; margin-bottom: 0.5rem; }
+        .main-title h1 {
+            font-family: 'ZiHunBianTaoTi', 'HarmonyOS Sans', 'Noto Serif SC', serif;
+            font-size: clamp(2.8rem, 9vw, 4.6rem);
+            font-weight: normal; letter-spacing: 6px; color: #ffffff;
+            line-height: 1.3;
+        }
+        .glass-card {
+            background: rgba(8, 38, 48, 0.5);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border-radius: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            border-color: rgba(255, 255, 255, 0.24);
+            box-shadow: 0 30px 60px -16px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+        .core-sections {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 1.8rem; margin-top: 1.8rem;
+        }
+        .core-card {
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            padding: 2.5rem 1.5rem 2rem;
+            background: rgba(6, 32, 42, 0.6);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border-radius: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative; overflow: hidden;
+        }
+        .core-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 255, 255, 0.28);
+            box-shadow: 0 30px 55px -12px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+            background: rgba(12, 50, 64, 0.7);
+        }
+        .core-icon { font-size: 3.4rem; margin-bottom: 1.2rem; line-height: 1; transition: transform 0.3s; }
+        .core-card:hover .core-icon { transform: scale(1.08); }
+        .core-title { font-family: 'HarmonyOS Sans', 'Inter', sans-serif; font-weight: 600; font-size: 1.35rem; letter-spacing: 1px; color: #ffffff; margin-bottom: 0.6rem; }
+        .core-sub { font-size: 0.85rem; color: #a0d0dc; margin-bottom: 1.5rem; letter-spacing: 0.5px; }
+        .core-btn {
+            margin-top: auto; display: inline-block; padding: 0.75rem 2.2rem; border-radius: 40px;
+            background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff; font-weight: 500; font-size: 0.95rem; letter-spacing: 1px;
+            text-decoration: none; transition: all 0.3s ease; cursor: pointer;
+        }
+        .core-btn:hover:not(.disabled) { background: rgba(255, 255, 255, 0.2); border-color: rgba(255, 255, 255, 0.4); transform: translateY(-2px); letter-spacing: 1.5px; }
+        .core-btn.disabled { opacity: 0.45; cursor: not-allowed; pointer-events: none; background: rgba(255, 255, 255, 0.04); color: rgba(255, 255, 255, 0.6); }
+        
+        .poem-section { padding: 2.2rem 2rem; display: flex; flex-direction: column; gap: 1.5rem; }
+        .poem-header { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; font-weight: 600; font-size: 1.6rem; color: #ffffff; letter-spacing: 2px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 1rem; flex-wrap: wrap; }
+        .poem-header-left { display: flex; align-items: center; gap: 0.8rem; }
+        .poem-header-left span { font-size: 2rem; }
+        .poem-toolbar { display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; }
+        .poem-select {
+            appearance: none; padding: 0.55rem 2.2rem 0.55rem 1.2rem; border-radius: 40px;
+            background-color: rgba(255, 255, 255, 0.06);
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c8e4ec' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat; background-position: right 0.8rem center; background-size: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.15); color: #c8e4ec; font-weight: 500; font-size: 0.85rem;
+            cursor: pointer; transition: all 0.3s ease; max-width: 260px;
+        }
+        .poem-select:hover, .poem-select:focus { background-color: rgba(255, 255, 255, 0.14); border-color: rgba(255, 255, 255, 0.3); color: #ffffff; outline: none; }
+        .poem-select option { background: #0b3f4c; color: #eef2f9; }
+        .poem-refresh { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.55rem 1.4rem; border-radius: 40px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.15); color: #c8e4ec; font-weight: 500; font-size: 0.85rem; cursor: pointer; transition: all 0.3s ease; }
+        .poem-refresh:hover { background: rgba(255, 255, 255, 0.14); border-color: rgba(255, 255, 255, 0.3); color: #ffffff; transform: translateY(-2px); }
+        .poem-refresh .refresh-icon { display: inline-block; transition: transform 0.4s ease; font-size: 1rem; }
+        .poem-refresh:hover .refresh-icon { transform: rotate(180deg); }
+        .poem-card { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 24px; padding: 2.2rem 2.4rem; transition: all 0.35s ease; position: relative; overflow: hidden; }
+        .poem-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, transparent, rgba(120, 220, 240, 0.5), transparent); opacity: 0.7; }
+        .poem-card:hover { background: rgba(255, 255, 255, 0.07); border-color: rgba(255, 255, 255, 0.16); }
+        .poem-dynasty-author { font-size: 0.9rem; color: #88c8d8; letter-spacing: 1px; margin-bottom: 0.6rem; }
+        .poem-title { font-family: 'ZiHunBianTaoTi', 'HarmonyOS Sans', 'Noto Serif SC', serif; font-size: 1.9rem; font-weight: normal; color: #ffffff; letter-spacing: 2px; margin-bottom: 1.4rem; line-height: 1.4; }
+        .poem-content { font-family: 'HarmonyOS Sans', 'Noto Serif SC', serif; font-size: 1.1rem; line-height: 2.1; color: #d8eef4; letter-spacing: 1.5px; white-space: pre-line; word-break: break-word; }
+        .poem-tip { text-align: center; font-size: 0.8rem; color: rgba(255, 255, 255, 0.35); letter-spacing: 1.5px; padding-top: 0.3rem; }
+        
+        /* ==================== 可折叠更新日志 ==================== */
+        .changelog-section {
+            padding: 2rem 2rem 1.8rem;
+            position: relative;
+        }
+        .changelog-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.8rem;
+            font-weight: 600;
+            font-size: 1.5rem;
+            color: #ffffff;
+            letter-spacing: 2px;
+            cursor: pointer;
+            user-select: none;
+            padding-bottom: 0.9rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: border-color 0.4s ease;
+        }
+        .changelog-header:hover {
+            border-bottom-color: rgba(255, 255, 255, 0.22);
+        }
+        .changelog-header-left {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .changelog-header-left span {
+            font-size: 1.8rem;
+        }
+        .changelog-toggle-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #a8d8e0;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+            transition:
+                transform 0.55s cubic-bezier(0.68, -0.55, 0.27, 1.55),
+                background 0.3s ease,
+                color 0.3s ease,
+                border-color 0.3s ease;
+        }
+        .changelog-header:hover .changelog-toggle-icon {
+            background: rgba(255, 255, 255, 0.14);
+            border-color: rgba(255, 255, 255, 0.28);
+            color: #ffffff;
+        }
+        .changelog-section.expanded .changelog-toggle-icon {
+            transform: rotate(-180deg);
+        }
 
-      .welcome-area .header-text h1 {
-        font-size: 75px !important; 
-        line-height: 1.4 !important;
-        font-family: 'ZiHunBianTaoTi', 'Microsoft YaHei', sans-serif !important; 
-      }
-      .welcome-area .header-text p {
-        font-size: 50px !important; 
-        line-height: 1.4 !important;
-        font-family: "Microsoft YaHei", "微软雅黑", sans-serif !important;
-        font-weight: bold !important;
-      }
+        .changelog-body {
+            display: grid;
+            grid-template-rows: 0fr;
+            margin-top: 0;
+            transition:
+                grid-template-rows 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+                margin-top 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .changelog-section.expanded .changelog-body {
+            grid-template-rows: 1fr;
+            margin-top: 1.5rem;
+        }
+        .changelog-inner {
+            overflow: hidden;
+            min-height: 0;
+            opacity: 0;
+            transform: translateY(-14px);
+            transition:
+                opacity 0.35s ease,
+                transform 0.5s cubic-bezier(0.34, 1.2, 0.64, 1);
+        }
+        .changelog-section.expanded .changelog-inner {
+            opacity: 1;
+            transform: translateY(0);
+            transition:
+                opacity 0.5s ease 0.12s,
+                transform 0.65s cubic-bezier(0.34, 1.2, 0.64, 1) 0.08s;
+        }
 
-      .top-left-image {
-        position: absolute;
-        top: 30px;
-        left: 30px;
-        z-index: 999;
-        width: 80px;
-        height: auto;
-      }
+        .changelog-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.1rem;
+        }
 
-      .theme-toggle-btn {
-        position: fixed;
-        top: 30px;
-        right: 30px;
-        z-index: 9999;
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.75);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.8);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 22px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-      .theme-toggle-btn:hover {
-        transform: scale(1.1);
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-      }
+        .changelog-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 18px;
+            padding: 1.1rem 1.4rem;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            opacity: 0;
+            transform: translateX(-18px);
+            transition:
+                opacity 0.45s ease,
+                transform 0.55s cubic-bezier(0.34, 1.2, 0.64, 1),
+                background 0.25s ease,
+                border-color 0.25s ease;
+        }
+        .changelog-section.expanded .changelog-item {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        /* 错峰延迟 */
+        .changelog-section.expanded .changelog-item:nth-child(1) { transition-delay: 0.16s, 0.16s, 0s, 0s; }
+        .changelog-section.expanded .changelog-item:nth-child(2) { transition-delay: 0.22s, 0.22s, 0s, 0s; }
+        .changelog-section.expanded .changelog-item:nth-child(3) { transition-delay: 0.28s, 0.28s, 0s, 0s; }
+        .changelog-section.expanded .changelog-item:nth-child(4) { transition-delay: 0.34s, 0.34s, 0s, 0s; }
+        .changelog-section.expanded .changelog-item:nth-child(5) { transition-delay: 0.40s, 0.40s, 0s, 0s; }
+        .changelog-section.expanded .changelog-item:nth-child(6) { transition-delay: 0.46s, 0.46s, 0s, 0s; }
+        .changelog-section.expanded .changelog-item:nth-child(7) { transition-delay: 0.52s, 0.52s, 0s, 0s; }
+        .changelog-section.expanded .changelog-item:nth-child(8) { transition-delay: 0.58s, 0.58s, 0s, 0s; }
+        .changelog-section.expanded .changelog-item:nth-child(9) { transition-delay: 0.64s, 0.64s, 0s, 0s; }
+        .changelog-section.expanded .changelog-item:nth-child(10) { transition-delay: 0.70s, 0.70s, 0s, 0s; }
 
-      .bottom-gradient-wrapper {
-        background: linear-gradient(to top, #8e44ad 0%, #b388eb 40%, #fdfcfd 100%) !important;
-        padding-top: 30px;
-        padding-bottom: 0;
-        margin-top: 0;
-        transition: background 0.4s ease;
-      }
+        .changelog-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.14);
+        }
 
-      .glass-effect {
-        background: rgba(255, 255, 255, 0.55) !important; 
-        backdrop-filter: blur(20px) saturate(180%); 
-        -webkit-backdrop-filter: blur(20px) saturate(180%); 
-        border: 1px solid rgba(255, 255, 255, 0.8) !important; 
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6); 
-        position: relative;
-        overflow: hidden;
-        transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
-      }
-      .glass-effect::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: radial-gradient(
-          120px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-          rgba(255, 255, 255, 0.9),
-          rgba(255, 255, 255, 0.15) 50%,
-          transparent 80%
-        );
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        pointer-events: none;
-        z-index: 1;
-      }
-      .glass-effect:hover::before { opacity: 1; }
+        /* 更新日志头部：版本号 + 日期 */
+        .changelog-item-head {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            padding-bottom: 0.45rem;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+        }
+        .changelog-version {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #ffffff;
+            letter-spacing: 1px;
+            padding: 0.15rem 0.7rem;
+            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(120, 220, 240, 0.22), rgba(120, 220, 240, 0.08));
+            border: 1px solid rgba(120, 220, 240, 0.25);
+        }
+        .changelog-date {
+            font-weight: 400;
+            color: #88c8d8;
+            font-size: 0.82rem;
+            letter-spacing: 0.5px;
+        }
 
-      .feedback-section-wrapper {
-        position: relative;
-        padding: 20px 0 30px 0;
-      }
+        /* 每条更新的分类行 */
+        .changelog-line {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.55rem;
+            color: #d0e8ee;
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+        .changelog-line .line-icon {
+            flex-shrink: 0;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        .changelog-line strong {
+            color: #ffffff;
+            font-weight: 500;
+            margin-right: 0.15rem;
+        }
 
-      .feedback-bar {
-        background: linear-gradient(135deg, rgba(255, 245, 240, 0.7) 0%, rgba(255, 224, 214, 0.7) 50%, rgba(252, 228, 236, 0.7) 100%) !important;
-        backdrop-filter: blur(20px) saturate(180%);
-        -webkit-backdrop-filter: blur(20px) saturate(180%);
-        border: 1px solid rgba(255, 255, 255, 0.8) !important;
-        border-radius: 12px;
-        box-shadow: 0 8px 32px rgba(255, 138, 101, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.6);
-        padding: 30px 40px; 
-        margin: 0 auto; 
-        max-width: 900px;       
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        transition: box-shadow 0.3s ease, transform 0.3s ease, background 0.4s ease;
-        position: relative;
-        overflow: hidden;
-      }
-      .feedback-bar::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: radial-gradient(
-          120px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-          rgba(255, 255, 255, 0.9),
-          rgba(255, 255, 255, 0.15) 50%,
-          transparent 80%
-        );
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        pointer-events: none;
-        z-index: 1;
-      }
-      .feedback-bar:hover::before { opacity: 1; }
-      .feedback-bar:hover {
-        box-shadow: 0 12px 40px rgba(255, 138, 101, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.6);
-        transform: translateY(-3px);
-      }
-      
-      .feedback-left {
-        display: flex;
-        align-items: center;
-        position: relative;
-        z-index: 2;
-      }
-      .feedback-left .feedback-icon {
-        font-size: 36px;
-        color: #ff8a65;
-        margin-right: 20px;
-        background: rgba(255, 255, 255, 0.9); 
-        width: 60px; height: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        box-shadow: 0 2px 8px rgba(255, 138, 101, 0.2);
-      }
-      .feedback-text h4 {
-        font-size: 20px; font-weight: 600; color: #333;
-        margin: 0 0 5px 0; transition: color 0.4s ease;
-      }
-      .feedback-text p {
-        font-size: 15px; color: #666;
-        margin: 0; transition: color 0.4s ease;
-      }
-      .feedback-text p strong { color: #e57350; }
-      
-      .feedback-right .feedback-btn {
-        display: inline-block;
-        padding: 12px 32px;
-        background-color: #ff8a65;
-        color: #fff;
-        border-radius: 8px;
-        text-decoration: none;
-        font-size: 16px;
-        font-weight: 500;
-        transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-        white-space: nowrap;
-        box-shadow: 0 4px 12px rgba(255, 138, 101, 0.4);
-        position: relative;
-        z-index: 2;
-      }
-      .feedback-right .feedback-btn:hover {
-        background-color: #e57350;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 18px rgba(255, 138, 101, 0.5);
-      }
-
-      .changelog-wrapper {
-        max-width: 900px;
-        margin: 0 auto 30px;
-        border-radius: 12px;
-        overflow: hidden;
-        transition: all 0.3s ease;
-      }
-      .changelog-header {
-        padding: 18px 25px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        font-size: 17px;
-        font-weight: 600;
-        color: #555;
-        transition: background 0.2s, color 0.4s ease;
-        background: rgba(255, 255, 255, 0.4);
-        position: relative;
-        z-index: 2;
-      }
-      .changelog-header:hover { background: rgba(255, 255, 255, 0.6); }
-      .changelog-header .toggle-icon {
-        font-size: 18px;
-        color: #ff8a65;
-        transition: transform 0.3s ease;
-      }
-      .changelog-header.active .toggle-icon { transform: rotate(180deg); }
-      .changelog-body {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.5s ease, background 0.4s ease;
-        background: rgba(255, 255, 255, 0.2);
-      }
-      .changelog-body-inner {
-        padding: 20px 25px 25px;
-        color: #666;
-        font-size: 14px;
-        line-height: 1.8;
-        border-top: 1px solid rgba(255,255,255,0.5);
-      }
-      .changelog-body-inner h5 {
-        font-size: 15px;
-        font-weight: 600;
-        color: #333;
-        margin: 15px 0 5px 0;
-      }
-      .changelog-body-inner h5:first-child { margin-top: 0; }
-      .changelog-body-inner p { margin: 0 0 5px 0; padding-left: 10px; }
-
-      .github-card-wrapper {
-        max-width: 900px;
-        margin: 0 auto 30px;
-        border-radius: 12px;
-        padding: 20px 25px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-      }
-      .github-card-wrapper::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: radial-gradient(
-          120px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-          rgba(255, 255, 255, 0.9),
-          rgba(255, 255, 255, 0.15) 50%,
-          transparent 80%
-        );
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        pointer-events: none;
-        z-index: 1;
-      }
-      .github-card-wrapper:hover::before { opacity: 1; }
-      .github-card-wrapper:hover { transform: translateY(-3px); }
-      .github-card-left {
-        display: flex;
-        align-items: center;
-        position: relative;
-        z-index: 2;
-      }
-      .github-card-left .github-icon {
-        font-size: 32px;
-        color: #333;
-        margin-right: 15px;
-        transition: color 0.4s ease;
-      }
-      .github-card-text h5 {
-        font-size: 16px;
-        font-weight: 600;
-        color: #333;
-        margin: 0 0 3px 0;
-        transition: color 0.4s ease;
-      }
-      .github-card-text p {
-        font-size: 14px;
-        color: #888;
-        margin: 0;
-        transition: color 0.4s ease;
-      }
-      .github-card-right a {
-        display: inline-block;
-        padding: 10px 24px;
-        background-color: #333;
-        color: #fff;
-        border-radius: 8px;
-        text-decoration: none;
-        font-size: 14px;
-        font-weight: 500;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-        white-space: nowrap;
-        position: relative;
-        z-index: 2;
-      }
-      .github-card-right a:hover {
-        background-color: #555;
-        transform: translateY(-2px);
-      }
-
-      footer {
-        background: transparent !important;
-        padding-top: 20px !important;
-        padding-bottom: 30px !important;
-        margin-top: 0 !important;
-      }
-      footer .footer-note {
-        color: #fff;
-        text-align: center;
-        font-size: 14px;
-        letter-spacing: 0.5px;
-        margin: 0;
-        padding: 0;
-        opacity: 0.92;
-        transition: color 0.4s ease;
-      }
-
-      /* ===== 暗色模式 ===== */
-      body.dark-mode {
-        background-color: #1a1a2e !important;
-        color: #e0e0e0;
-      }
-      body.dark-mode #main-content {
-        background-color: #1a1a2e !important;
-      }
-      body.dark-mode .welcome-area {
-        filter: none !important;
-      }
-      body.dark-mode .welcome-area .header-text h1,
-      body.dark-mode .welcome-area .header-text p {
-        color: #fff;
-        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
-      }
-      body.dark-mode .section.home-feature {
-        position: relative;
-        background: linear-gradient(to bottom, transparent 0%, #1a1a2e 15%) !important;
-        background-color: transparent !important;
-        margin-top: -50px;
-        padding-top: 60px;
-      }
-      body.dark-mode .bottom-gradient-wrapper {
-        background: linear-gradient(to top, #6d28d9 0%, #4c1d95 40%, #1a1a2e 100%) !important;
-      }
-      body.dark-mode .glass-effect {
-        background: rgba(35, 35, 55, 0.7) !important;
-        border: 1px solid rgba(255, 255, 255, 0.12) !important;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-      }
-      body.dark-mode .glass-effect::before,
-      body.dark-mode .feedback-bar::before,
-      body.dark-mode .github-card-wrapper::before {
-        background: radial-gradient(
-          120px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-          rgba(255, 255, 255, 0.35),
-          rgba(255, 255, 255, 0.05) 50%,
-          transparent 80%
-        );
-      }
-      body.dark-mode .feedback-bar {
-        background: linear-gradient(135deg, rgba(45, 35, 65, 0.85) 0%, rgba(40, 30, 60, 0.85) 50%, rgba(35, 30, 55, 0.85) 100%) !important;
-        border: 1px solid rgba(255, 255, 255, 0.12) !important;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-      }
-      body.dark-mode .feedback-left .feedback-icon {
-        background: rgba(45, 40, 65, 0.9);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-      }
-      body.dark-mode .features-small-item .features-title,
-      body.dark-mode .features-small-item p {
-        color: #f0f0f0 !important;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-      }
-      body.dark-mode .feedback-text h4,
-      body.dark-mode .changelog-header,
-      body.dark-mode .changelog-body-inner h5,
-      body.dark-mode .github-card-text h5,
-      body.dark-mode .github-card-left .github-icon {
-        color: #e8e8e8;
-      }
-      body.dark-mode .feedback-text p,
-      body.dark-mode .changelog-body-inner,
-      body.dark-mode .github-card-text p {
-        color: #b0b0b0;
-      }
-      body.dark-mode .feedback-btn {
-        background-color: #ff9c7a;
-        color: #1a1a2e;
-        font-weight: 600;
-      }
-      body.dark-mode .feedback-btn:hover { background-color: #ffb098; }
-      body.dark-mode .github-card-right a {
-        background-color: #ff9c7a;
-        color: #1a1a2e;
-        font-weight: 600;
-      }
-      body.dark-mode .github-card-right a:hover {
-        background-color: #ffb098;
-      }
-      body.dark-mode .theme-toggle-btn {
-        background: rgba(30, 30, 50, 0.7);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        color: #fff;
-      }
-      body.dark-mode #mobile-block-message {
-        background: #1a1a2e;
-        color: #e0e0e0;
-      }
-      body.dark-mode #mobile-block-message h2 { color: #ff9c7a; }
-      body.dark-mode #mobile-block-message p  { color: #b0b0b0; }
-
-      #mobile-block-message {
-        display: none; 
-        position: fixed;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background: #f5f5f5;
-        z-index: 99999;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 30px;
-      }
-      #mobile-block-message h2 {
-        font-size: 24px;
-        color: #ff8a65;
-        margin-bottom: 15px;
-      }
-      #mobile-block-message p {
-        font-size: 16px;
-        color: #666;
-        line-height: 1.6;
-        max-width: 300px;
-      }
-      #mobile-block-message .icon {
-        font-size: 60px;
-        color: #ff8a65;
-        margin-bottom: 20px;
-      }
+        .changelog-lines {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+        
+        .feedback-section { padding: 2rem 2rem 1.8rem; }
+        .feedback-header { display: flex; align-items: center; gap: 0.8rem; font-weight: 600; font-size: 1.5rem; color: #ffffff; letter-spacing: 2px; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 0.9rem; }
+        .feedback-header span { font-size: 1.8rem; }
+        .feedback-contacts { display: flex; flex-direction: column; gap: 1rem; align-items: stretch; }
+        .contact-item { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.8rem; background: rgba(255, 255, 255, 0.06); border-radius: 60px; border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.3s; text-decoration: none; color: #ffffff; }
+        .contact-item:hover { background: rgba(255, 255, 255, 0.14); border-color: rgba(255, 255, 255, 0.25); transform: translateY(-3px); }
+        .contact-icon { font-size: 1.6rem; line-height: 1; }
+        .contact-info { display: flex; flex-direction: column; }
+        .contact-label { font-size: 0.7rem; color: #88b8c4; letter-spacing: 1px; text-transform: uppercase; }
+        .contact-value { font-size: 0.95rem; font-weight: 500; }
+        .more-feedback { margin-top: 1rem; text-align: center; font-size: 0.85rem; color: rgba(255, 255, 255, 0.4); letter-spacing: 1.5px; padding: 0.8rem 0; border-top: 1px dashed rgba(255, 255, 255, 0.08); }
+        
+        .github-section { display: flex; align-items: center; justify-content: space-between; padding: 1.8rem 2.2rem; gap: 1.5rem; flex-wrap: wrap; }
+        .github-left { display: flex; align-items: center; gap: 1.5rem; }
+        .github-icon-svg { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; }
+        .github-icon-svg svg { width: 100%; height: 100%; fill: #ffffff; }
+        .github-text h3 { font-weight: 600; font-size: 1.3rem; color: #ffffff; margin-bottom: 0.3rem; }
+        .github-text p { font-size: 0.9rem; color: #a0d0dc; }
+        .github-link { display: inline-flex; align-items: center; gap: 0.7rem; padding: 0.8rem 2rem; border-radius: 40px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.18); color: #ffffff; text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: all 0.3s ease; white-space: nowrap; }
+        .github-link:hover { background: rgba(255, 255, 255, 0.2); border-color: rgba(255, 255, 255, 0.38); transform: translateY(-2px); }
+        .last-updated { text-align: center; font-size: 0.8rem; color: rgba(255, 255, 255, 0.45); letter-spacing: 1.5px; padding: 1rem 0 0.5rem; border-top: 1px solid rgba(255, 255, 255, 0.08); }
+        
+        @media (max-width: 900px) {
+            .core-sections { grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-top: 1.5rem; }
+            .core-card { padding: 1.8rem 1rem 1.6rem; }
+            .core-icon { font-size: 2.6rem; }
+            .core-title { font-size: 1.1rem; }
+        }
+        @media (max-width: 700px) {
+            body { padding: 1.2rem 0.9rem 1rem; }
+            .core-sections { grid-template-columns: 1fr; gap: 1.2rem; margin-top: 1.2rem; }
+            .core-card { padding: 2rem 1.5rem 1.8rem; }
+            .poem-section { padding: 1.6rem 1.2rem; }
+            .poem-card { padding: 1.6rem 1.4rem; }
+            .poem-title { font-size: 1.5rem; }
+            .poem-content { font-size: 1rem; line-height: 1.9; }
+            .poem-toolbar { width: 100%; }
+            .poem-select { flex: 1; max-width: none; }
+            .contact-item { justify-content: center; }
+            .github-section { flex-direction: column; align-items: flex-start; padding: 1.6rem 1.5rem; }
+            .github-link { width: 100%; justify-content: center; }
+            .changelog-section { padding: 1.6rem 1.2rem; }
+            .changelog-header { font-size: 1.25rem; }
+            .changelog-header-left span { font-size: 1.5rem; }
+            .changelog-item { padding: 0.9rem 1.1rem; }
+        }
     </style>
-  </head>
-  <body>
-    
-    <div id="mobile-block-message">
-      <div class="icon">💻</div>
-      <h2>请在电脑端访问 <br> Please visit on PC</h2>
-      <p>由于网页架构调整，于2026年9月停止了对移动版的支持，请通过PC网页版访问该网站。<br> Due to changes in the website structure, support for the mobile version stopped in September 2026. Please access the site via the PC version.</p>
-    </div>
-
-    <div id="main-content">
-      
-      <img src="./images/xiaohui.png" alt="左上角图片" class="top-left-image">
-      <div class="theme-toggle-btn" id="themeToggleBtn" title="切换亮/暗模式">🌙</div>
-
-      <div>
-        <div id="welcome" class="welcome-area">
-          <div class="header-text">
-            <div class="container">
-              <div class="row">
-                <div class="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8 col-md-12 col-sm-12">
-                  <h1>语文资料整理汇总平台</h1>
-                  <p>课下注释/理解性默写</p>
-                </div>
-              </div>
-            </div>
-          </div>
+</head>
+<body>
+    <div class="page">
+        <div class="main-title">
+            <h1>语文资料汇总平台</h1>
         </div>
 
-        <section class="section home-feature">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="row">
-                  <div data-scroll-reveal="enter bottom move 50px over 0.6s after 0.2s" class="col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="features-small-item glass-effect">
-                      <div class="icon"><i><img src="./images/featured-item-01.png" alt=""></i></div>
-                      <h5 class="features-title">语文理解性默写</h5>
-                      <button type="button" class="btn btn-primary btn-sm px-3" onclick="window.open('https://linan1479.github.io/lijiemoxie/','_blank')">点击跳转</button>
-                    </div>
-                  </div>
-                  <div data-scroll-reveal="enter bottom move 50px over 0.6s after 0.4s" class="col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="features-small-item glass-effect">
-                      <div class="icon"><i><img src="./images/featured-item-01.png" alt=""></i></div>
-                      <h5 class="features-title">语文课下注释</h5>
-                      <button type="button" class="btn btn-primary btn-sm px-3" onclick="window.open('https://mz09.dpdns.org','_blank')">点击跳转</button>
-                    </div>
-                  </div>
-                  <div data-scroll-reveal="enter bottom move 50px over 0.6s after 0.6s" class="col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="features-small-item glass-effect">
-                      <div class="icon"><i><img src="./images/featured-item-01.png" alt=""></i></div>
-                      <h5 class="features-title">预留入口</h5>
-                      <p>暂不开放</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+        <div class="core-sections">
+            <div class="core-card">
+                <div class="core-icon">📝</div>
+                <div class="core-title">语文课下注释测试</div>
+                <div class="core-sub">课文注释 · 随堂检测</div>
+                <a href="https://mz09.dpdns.org/" class="core-btn" target="_blank" rel="noopener noreferrer">进入测试 →</a>
             </div>
-          </div>
-        </section>
-
-        <div class="bottom-gradient-wrapper">
-          
-          <div class="feedback-section-wrapper">
-            <div class="container">
-              <div class="feedback-bar glass-effect">
-                <div class="feedback-left">
-                  <div class="feedback-icon">📧</div>
-                  <div class="feedback-text">
-                    <h4>反馈与建议</h4>
-                    <p>如果你有好的建议或发现页面错误，欢迎发送邮件至 <strong>linan1125@outlook.com</strong> <br><del>当然，是尽量满足ヾ(≧▽≦*)o</del></p>
-                  </div>
-                </div>
-                <div class="feedback-right">
-                  <a href="mailto:linan1125@outlook.com" class="feedback-btn">发送邮件</a>
-                </div>
-              </div>
+            <div class="core-card">
+                <div class="core-icon">✍️</div>
+                <div class="core-title">语文理解性默写</div>
+                <div class="core-sub">情境默写 · 名句填空</div>
+                <a href="https://linan1479.github.io/lijiemoxie/" class="core-btn" target="_blank" rel="noopener noreferrer">开始默写 →</a>
             </div>
-          </div>
-
-          <div class="container">
-            <div class="changelog-wrapper glass-effect">
-              <div class="changelog-header" onclick="toggleChangelog(this)">
-                <span>📝 更新日志</span>
-                <span class="toggle-icon">▼</span>
-              </div>
-              <div class="changelog-body">
-                <div class="changelog-body-inner">
-                  <h5>v1.2.1 (2026-09-27 00:30)</h5>
-                  <p>🖥️ 修复问题：网页元素报错问题。</p>
-                  <p>📱 移动端判定优化：移除窗口宽度判断，仅通过 User-Agent 识别，避免电脑端缩窗被误判为手机而屏蔽页面。</p>
-                  <p>📝 更新日志稳健性：修复折叠/展开失效问题。</p>
-
-                  <h5>v1.2.0 (2026-09-25 22:00)</h5>
-                  <p>🌗 主题切换：新增右上角亮/暗模式切换按钮，一键切换全局配色。</p>
-                  <p>🌙 暗色设计：全新设计暗色主题，包括深色玻璃卡片、深紫渐变背景、暗色按钮等。</p>
-                  <p>💾 偏好记忆：使用 localStorage 记住用户主题选择，刷新后仍保持。</p>
-                  <p>🖥️ 跟随系统：网页默认跟随系统亮/暗模式设置。</p>
-                  <p>🎨 按钮调整：GitHub 访问按钮在暗色下调整为与“发送邮件”按钮一致。</p>
-                  
-                  <h5>v1.1.8 (2026-09-25 21:50)</h5>
-                  <p>✨ 视觉升级：全站卡片应用鸿蒙玻璃拟态效果（backdrop-filter 模糊 + 半透明白底 + 高光边框）。</p>
-                  <p>🖱️ 鼠标光源：新增鼠标移动跟随的光源效果，悬停时卡片上有柔和光晕跟随。</p>
-                  <p>🪟 卡片质感：三个功能卡片、反馈长条、更新日志、GitHub 卡片均加入玻璃质感与悬停上浮效果。</p>
-                  <p>🔧 兼容性优化：补充 -webkit-backdrop-filter 属性，兼容 Safari 浏览器。</p>
-                  
-                  <h5>v1.1.5 (2026-09-25 21:20)</h5>
-                  <p>📧 反馈功能上线：新增反馈区by e-mail（<del>当然不是为了炫耀哈</del>，是为了有更好的观看体验）。</p>
-                  <p>🎨 视觉优化：反馈区与页脚加入向上紫色渐变，页面过渡更自然。</p>
-                  
-                  <h5>v1.1.4 (2026-09-25 20:05)</h5>
-                  <p>🛠️ 界面优化：主标题 75px，小标题 50px 加粗。</p>
-                  <p>🖼️ 新增校徽图片 xiaohui.png，尺寸 80px。</p>
-                  <p>⚙️ 修复 waypoints.js 与 jquery.js 版本冲突导致的动效失效问题。</p>
-                  <p>📱 手机端适配：手机访问自动屏蔽主页，提示“请在电脑端访问”。</p>
-                  <p>✨ 动效恢复：重新实现标题弹出、卡片缓慢上升动画。</p>
-
-                  <h5>v1.1.2 (2026-09-25 19:40)</h5>
-                  <p>🐛 修复移动端“预留入口”被遮挡消失的问题。</p>
-
-                  <h5>v1.1.0 (2026-09-25 19:20)</h5>
-                  <p>✍️ 引入字魂编桃体，小标题改为微软雅黑。</p>
-
-                  <h5>v1.0.0 (2026-09-22 12:46)</h5>
-                  <p>🎉 项目初始化：完成主标题、副标题及三个功能入口搭建。</p>
-                </div>
-              </div>
+            <div class="core-card">
+                <div class="core-icon">🔮</div>
+                <div class="core-title">预留入口</div>
+                <div class="core-sub">更多功能 · 敬请期待</div>
+                <span class="core-btn disabled">即将上线</span>
             </div>
-          </div>
-
-          <div class="container">
-            <div class="github-card-wrapper glass-effect">
-              <div class="github-card-left">
-                <div class="github-icon">
-                  <i class="fa fa-github"></i>
-                </div>
-                <div class="github-card-text">
-                  <h5>我的 GitHub 主页</h5>
-                  <p>查看项目源码与更多作品</p>
-                </div>
-              </div>
-              <div class="github-card-right">
-                <a href="https://github.com/linan1479" target="_blank">前往访问</a>
-              </div>
-            </div>
-          </div>
-
-          <footer>
-            <div class="container">
-              <div class="row"><div class="col-lg-12 col-md-12 col-sm-12"></div></div>
-              <div class="row">
-                <div class="col-lg-12">
-                  <p class="footer-note">供高三5班/9班使用，页面修改时间：2026-09-27（00:30）</p>
-                </div>
-              </div>
-            </div>
-          </footer>
-
         </div>
-      </div>
+
+        <div class="glass-card poem-section">
+            <div class="poem-header">
+                <div class="poem-header-left">
+                    <span>📖</span> 每日高考古诗词背诵
+                </div>
+                <div class="poem-toolbar">
+                    <select class="poem-select" id="poemSelect"></select>
+                    <button class="poem-refresh" id="refreshPoem" type="button">
+                        <span class="refresh-icon">🔄</span> 随机一篇
+                    </button>
+                </div>
+            </div>
+            <div class="poem-card">
+                <div class="poem-dynasty-author" id="poemMeta"></div>
+                <div class="poem-title" id="poemTitle"></div>
+                <div class="poem-content" id="poemContent"></div>
+            </div>
+        </div>
+
+        <!-- ==================== 可折叠更新日志 ==================== -->
+        <div class="glass-card changelog-section expanded" id="changelogSection">
+            <div class="changelog-header" id="changelogHeader" role="button" tabindex="0" aria-expanded="true">
+                <div class="changelog-header-left">
+                    <span>📋</span> 更新日志
+                </div>
+                <span class="changelog-toggle-icon" aria-hidden="true">▼</span>
+            </div>
+            <div class="changelog-body">
+                <div class="changelog-inner">
+                    <ul class="changelog-list">
+
+                        <!-- v1.3.0 本次更新 -->
+                        <li class="changelog-item">
+                            <div class="changelog-item-head">
+                                <span class="changelog-version">v1.3.0</span>
+                                <span class="changelog-date">2026-09-30</span>
+                            </div>
+                            <div class="changelog-lines">
+                                <div class="changelog-line"><span class="line-icon">📱</span><span><strong>重新支持移动端：</strong>恢复手机端正常访问，适配小屏布局与触控操作，随时随地都能复习</span></div>
+                                <div class="changelog-line"><span class="line-icon">🎨</span><span><strong>界面优化：</strong>调整整体布局与视觉细节，背景改为纵向青色渐变，顶部深色收敛，标题取消加粗，观感更沉稳清爽</span></div>
+                                <div class="changelog-line"><span class="line-icon">📖</span><span><strong>增设每日古诗文：</strong>新增「每日高考古诗词背诵」模块，内置 54 篇必背篇目全文，随机展示，支持下拉菜单手动选择、一键换一篇</span></div>
+                            </div>
+                        </li>
+
+                        <!-- v1.2.1 -->
+                        <li class="changelog-item">
+                            <div class="changelog-item-head">
+                                <span class="changelog-version">v1.2.1</span>
+                                <span class="changelog-date">2026-09-27 00:30</span>
+                            </div>
+                            <div class="changelog-lines">
+                                <div class="changelog-line"><span class="line-icon">🖥️</span><span><strong>问题修复：</strong>修复网页元素报错问题</span></div>
+                                <div class="changelog-line"><span class="line-icon">📱</span><span><strong>移动端判定优化：</strong>移除窗口宽度判断，仅通过 User-Agent 识别，避免电脑端缩窗被误判为手机而屏蔽页面</span></div>
+                                <div class="changelog-line"><span class="line-icon">📝</span><span><strong>更新日志稳健性：</strong>修复折叠 / 展开失效问题</span></div>
+                            </div>
+                        </li>
+
+                        <!-- v1.2.0 -->
+                        <li class="changelog-item">
+                            <div class="changelog-item-head">
+                                <span class="changelog-version">v1.2.0</span>
+                                <span class="changelog-date">2026-09-25 22:00</span>
+                            </div>
+                            <div class="changelog-lines">
+                                <div class="changelog-line"><span class="line-icon">🌗</span><span><strong>主题切换：</strong>新增右上角亮 / 暗模式切换按钮，一键切换全局配色</span></div>
+                                <div class="changelog-line"><span class="line-icon">🌙</span><span><strong>暗色设计：</strong>全新设计暗色主题，包括深色玻璃卡片、深紫渐变背景、暗色按钮等</span></div>
+                                <div class="changelog-line"><span class="line-icon">💾</span><span><strong>偏好记忆：</strong>使用 localStorage 记住用户主题选择，刷新后仍保持</span></div>
+                                <div class="changelog-line"><span class="line-icon">🖥️</span><span><strong>跟随系统：</strong>网页默认跟随系统亮 / 暗模式设置，用户手动切换后仍会记住选择</span></div>
+                                <div class="changelog-line"><span class="line-icon">🎨</span><span><strong>按钮统一：</strong>GitHub 访问按钮在暗色模式下调整为与“发送邮件”按钮一致的橙色</span></div>
+                                <div class="changelog-line"><span class="line-icon">🔧</span><span><strong>过渡优化：</strong>修复暗色模式下背景图与卡片区域交界处的硬边问题</span></div>
+                            </div>
+                        </li>
+
+                        <!-- v1.1.8 -->
+                        <li class="changelog-item">
+                            <div class="changelog-item-head">
+                                <span class="changelog-version">v1.1.8</span>
+                                <span class="changelog-date">2026-09-25 21:50</span>
+                            </div>
+                            <div class="changelog-lines">
+                                <div class="changelog-line"><span class="line-icon">✨</span><span><strong>视觉升级：</strong>全站卡片应用鸿蒙玻璃拟态效果（backdrop-filter 模糊 + 半透明白底 + 高光边框）</span></div>
+                                <div class="changelog-line"><span class="line-icon">🖱️</span><span><strong>鼠标光源：</strong>新增鼠标移动跟随的光源效果，悬停时卡片上有柔和光晕跟随</span></div>
+                                <div class="changelog-line"><span class="line-icon">🪟</span><span><strong>卡片质感：</strong>三个功能卡片、反馈长条、更新日志、GitHub 卡片均加入玻璃质感与悬停上浮效果</span></div>
+                                <div class="changelog-line"><span class="line-icon">🔧</span><span><strong>兼容性优化：</strong>补充 -webkit-backdrop-filter 属性，兼容 Safari 浏览器</span></div>
+                            </div>
+                        </li>
+
+                        <!-- v1.1.5 -->
+                        <li class="changelog-item">
+                            <div class="changelog-item-head">
+                                <span class="changelog-version">v1.1.5</span>
+                                <span class="changelog-date">2026-09-25 21:20</span>
+                            </div>
+                            <div class="changelog-lines">
+                                <div class="changelog-line"><span class="line-icon">📧</span><span><strong>反馈功能上线：</strong>新增反馈区 by e-mail，为了有更好的观看体验</span></div>
+                                <div class="changelog-line"><span class="line-icon">🎨</span><span><strong>视觉优化：</strong>反馈区与页脚加入向上紫色渐变，页面过渡更自然</span></div>
+                                <div class="changelog-line"><span class="line-icon">🎉</span><span><strong>中秋快乐：</strong>祝各位中秋节快乐！</span></div>
+                            </div>
+                        </li>
+
+                        <!-- v1.1.4 -->
+                        <li class="changelog-item">
+                            <div class="changelog-item-head">
+                                <span class="changelog-version">v1.1.4</span>
+                                <span class="changelog-date">2026-09-25 20:05</span>
+                            </div>
+                            <div class="changelog-lines">
+                                <div class="changelog-line"><span class="line-icon">🛠️</span><span><strong>界面优化：</strong>主标题 75px，小标题 50px 加粗</span></div>
+                                <div class="changelog-line"><span class="line-icon">🖼️</span><span><strong>新增校徽：</strong>新增校徽图片 xiaohui.png，尺寸 80px</span></div>
+                                <div class="changelog-line"><span class="line-icon">⚙️</span><span><strong>功能修复：</strong>修复 waypoints.js 与 jquery.js 版本冲突导致的动效失效问题</span></div>
+                                <div class="changelog-line"><span class="line-icon">📱</span><span><strong>手机端适配：</strong>手机访问自动屏蔽主页，提示“请在电脑端访问”</span></div>
+                                <div class="changelog-line"><span class="line-icon">✨</span><span><strong>动效恢复：</strong>重新实现标题弹出、卡片缓慢上升动画</span></div>
+                            </div>
+                        </li>
+
+                        <!-- v1.1.2 -->
+                        <li class="changelog-item">
+                            <div class="changelog-item-head">
+                                <span class="changelog-version">v1.1.2</span>
+                                <span class="changelog-date">2026-09-25 19:40</span>
+                            </div>
+                            <div class="changelog-lines">
+                                <div class="changelog-line"><span class="line-icon">🐛</span><span><strong>Bug 修复：</strong>修复移动端“预留入口”被遮挡消失的问题</span></div>
+                            </div>
+                        </li>
+
+                        <!-- v1.1.0 -->
+                        <li class="changelog-item">
+                            <div class="changelog-item-head">
+                                <span class="changelog-version">v1.1.0</span>
+                                <span class="changelog-date">2026-09-25 19:20</span>
+                            </div>
+                            <div class="changelog-lines">
+                                <div class="changelog-line"><span class="line-icon">✍️</span><span><strong>字体定制：</strong>引入字魂编桃体作为主标题字体，小标题改为微软雅黑</span></div>
+                            </div>
+                        </li>
+
+                        <!-- v1.0.0 -->
+                        <li class="changelog-item">
+                            <div class="changelog-item-head">
+                                <span class="changelog-version">v1.0.0</span>
+                                <span class="changelog-date">2026-09-22 12:46</span>
+                            </div>
+                            <div class="changelog-lines">
+                                <div class="changelog-line"><span class="line-icon">🎉</span><span><strong>项目初始化：</strong>基于模板搭建“语文资料整理汇总平台”</span></div>
+                                <div class="changelog-line"><span class="line-icon">🏠</span><span><strong>初始架构：</strong>完成主标题、副标题及三个功能入口（理解性默写、课下注释、预留入口）的搭建</span></div>
+                                <div class="changelog-line"><span class="line-icon">🔗</span><span><strong>链接配置：</strong>完成相关跳转链接的部署</span></div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card feedback-section">
+            <div class="feedback-header">
+                <span>💬</span> 反馈与建议
+            </div>
+            <div class="feedback-contacts">
+                <a href="mailto:linan1125@outlook.com" class="contact-item">
+                    <span class="contact-icon">📧</span>
+                    <div class="contact-info">
+                        <span class="contact-label">Email</span>
+                        <span class="contact-value">linan1125@outlook.com</span>
+                    </div>
+                </a>
+            </div>
+            <div class="more-feedback">更多反馈方式敬请期待</div>
+        </div>
+
+        <div class="glass-card github-section">
+            <div class="github-left">
+                <div class="github-icon-svg">
+                    <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                    </svg>
+                </div>
+                <div class="github-text">
+                    <h3>GitHub 开源仓库</h3>
+                    <p>项目源码 · 欢迎 Star 与 Fork</p>
+                </div>
+            </div>
+            <a href="https://github.com/linan1479" class="github-link" target="_blank" rel="noopener noreferrer">
+                <span>🔗</span> 访问我的 GitHub
+            </a>
+        </div>
+
+        <div class="last-updated">页面最后更新于 2026 年 9 月 30 日</div>
     </div>
 
-    <script src="./js/jquery.js"></script>
-    <script src="./js/bootstrap.bundle.min.js"></script>
-    <script src="./js/plugins.js"></script>
-    <script src="./js/theme.js"></script>
-    <script src="./js/popper.js"></script>
-    <script src="./js/scrollreveal.min.js"></script>
-    <script src="./js/imgfix.min.js"></script>
-    <script src="./js/custom.js"></script>
-
+    <!-- 外部诗词数据 -->
+    <script src="poems-data.js"></script>
+    <!-- 加载后渲染 -->
     <script>
-      // 移动端检测：仅通过 UA 判断
-      function isMobileDevice() {
-        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      }
+        (function() {
+            var metaEl = document.getElementById('poemMeta');
+            var titleEl = document.getElementById('poemTitle');
+            var contentEl = document.getElementById('poemContent');
+            var selectEl = document.getElementById('poemSelect');
+            var refreshBtn = document.getElementById('refreshPoem');
 
-      // 移动端屏蔽逻辑
-      (function() {
-        if (isMobileDevice()) {
-          var mainContent = document.getElementById('main-content');
-          if (mainContent) { mainContent.style.display = 'none'; }
-          var blockMsg = document.getElementById('mobile-block-message');
-          if (blockMsg) { blockMsg.style.display = 'flex'; }
-          document.body.style.overflow = 'hidden';
-        }
-      })();
+            if (typeof poems === 'undefined' || !Array.isArray(poems) || poems.length === 0) {
+                if (metaEl) metaEl.textContent = '⚠️ 数据加载失败';
+                if (titleEl) titleEl.textContent = '请检查 poems-data.js 文件';
+                if (contentEl) contentEl.textContent = '可能原因：\n1. poems-data.js 和 index.html 不在同一文件夹\n2. poems-data.js 文件名拼写错误\n3. poems-data.js 有语法错误（按 F12 看控制台报错）';
+                console.error('poems 变量未定义或为空，请检查 poems-data.js');
+                return;
+            }
 
-      // 更新日志折叠切换
-      function toggleChangelog(header) {
-        var body = header.nextElementSibling;
-        if (!body) return;
-        
-        var isOpen = header.classList.toggle('active');
-        
-        if (isOpen) {
-          body.style.maxHeight = body.scrollHeight + "px";
-        } else {
-          body.style.maxHeight = "0px";
-        }
-      }
+            console.log('✅ 成功加载 ' + poems.length + ' 篇古诗文');
 
-      // 页面加载完成后的初始化
-      window.addEventListener('load', function() {
-        if (isMobileDevice()) return;
+            function initSelect() {
+                selectEl.innerHTML = '';
+                for (var i = 0; i < poems.length; i++) {
+                    var opt = document.createElement('option');
+                    opt.value = i;
+                    opt.textContent = poems[i].title;
+                    selectEl.appendChild(opt);
+                }
+            }
 
-        // 滚动显示动画
-        if (typeof ScrollReveal !== 'undefined') {
-          try {
-            var sr = ScrollReveal();
-            sr.reveal('.welcome-area .header-text h1', { duration: 1000, origin: 'bottom', distance: '50px', delay: 200 });
-            sr.reveal('.welcome-area .header-text p', { duration: 1000, origin: 'bottom', distance: '50px', delay: 400 });
-            sr.reveal('.features-small-item', { duration: 1000, origin: 'bottom', distance: '50px', interval: 200 });
-          } catch (e) {
-            console.warn('ScrollReveal 初始化失败:', e);
-          }
-        }
+            function renderByIndex(idx) {
+                if (idx < 0 || idx >= poems.length) return;
+                var p = poems[idx];
+                metaEl.textContent = p.meta;
+                titleEl.textContent = p.title;
+                contentEl.textContent = p.content;
+                selectEl.value = idx;
+            }
 
-        // 更新日志默认展开
-        var changelogHeader = document.querySelector('.changelog-header');
-        if (changelogHeader) {
-          changelogHeader.classList.add('active');
-          var body = changelogHeader.nextElementSibling;
-          if (body) {
-            requestAnimationFrame(function() {
-              body.style.maxHeight = body.scrollHeight + "px";
+            function renderRandomPoem() {
+                var idx = Math.floor(Math.random() * poems.length);
+                renderByIndex(idx);
+            }
+
+            initSelect();
+            renderRandomPoem();
+
+            selectEl.addEventListener('change', function() {
+                var idx = parseInt(this.value, 10);
+                if (!isNaN(idx)) renderByIndex(idx);
             });
-          }
-        }
-      });
 
-      // 窗口尺寸变化时重新计算更新日志高度
-      window.addEventListener('resize', function() {
-        var changelogHeader = document.querySelector('.changelog-header');
-        if (changelogHeader && changelogHeader.classList.contains('active')) {
-          var body = changelogHeader.nextElementSibling;
-          if (body) {
-            body.style.maxHeight = body.scrollHeight + "px";
-          }
-        }
-      });
+            refreshBtn.addEventListener('click', renderRandomPoem);
+        })();
 
-      // 鼠标跟随光源（仅桌面端）
-      if (!isMobileDevice()) {
-        document.addEventListener('mousemove', function(e) {
-          var glassCards = document.querySelectorAll('.glass-effect, .feedback-bar, .github-card-wrapper');
-          glassCards.forEach(function(card) {
-            var rect = card.getBoundingClientRect();
-            card.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
-            card.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
-          });
-        });
-      }
+        // ==================== 更新日志折叠逻辑 ====================
+        (function() {
+            var section = document.getElementById('changelogSection');
+            var header = document.getElementById('changelogHeader');
+            if (!section || !header) return;
 
-      // ===== 亮/暗主题切换 =====
-      (function() {
-        var toggleBtn = document.getElementById('themeToggleBtn');
-        if (!toggleBtn) return;
+            function toggle() {
+                var isExpanded = section.classList.toggle('expanded');
+                header.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+            }
 
-        var savedTheme = localStorage.getItem('theme');
-        var mql = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
-        var systemPrefersDark = mql ? mql.matches : false;
-
-        function applyTheme(isDark) {
-          if (isDark) {
-            document.body.classList.add('dark-mode');
-            toggleBtn.textContent = '☀️';
-          } else {
-            document.body.classList.remove('dark-mode');
-            toggleBtn.textContent = '🌙';
-          }
-        }
-
-        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
-          applyTheme(true);
-        } else {
-          applyTheme(false);
-        }
-
-        toggleBtn.addEventListener('click', function() {
-          var isDark = document.body.classList.toggle('dark-mode');
-          if (isDark) {
-            toggleBtn.textContent = '☀️';
-            localStorage.setItem('theme', 'dark');
-          } else {
-            toggleBtn.textContent = '🌙';
-            localStorage.setItem('theme', 'light');
-          }
-        });
-
-        if (!savedTheme && mql) {
-          var listener = function(e) {
-            applyTheme(e.matches);
-          };
-          if (mql.addEventListener) {
-            mql.addEventListener('change', listener);
-          } else if (mql.addListener) {
-            mql.addListener(listener);
-          }
-        }
-      })();
+            header.addEventListener('click', toggle);
+            header.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggle();
+                }
+            });
+        })();
     </script>
-  </body>
+</body>
 </html>
