@@ -340,6 +340,47 @@
             40% { opacity: 1; transform: scale(1.15); }
         }
 
+        /* ==================== 随机抽选 ==================== */
+        .random-pick-card {
+            grid-column: 1 / -1; display: flex; align-items: center; justify-content: center;
+            gap: 2.2rem; padding: 2.2rem 2.8rem; background: rgba(6,32,42,.6);
+            backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border-radius: 32px; border: 1px solid rgba(255,255,255,.12);
+            box-shadow: 0 16px 32px -8px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08);
+            transition: all .35s cubic-bezier(.4,0,.2,1); overflow: hidden;
+        }
+        .random-pick-card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,.24); }
+        .random-pick-icon {
+            width:76px;height:76px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+            border-radius:24px;font-size:2.7rem;
+            background:linear-gradient(135deg,rgba(120,220,240,.24),rgba(120,220,240,.07));
+            border:1px solid rgba(120,220,240,.25); box-shadow:0 8px 24px rgba(120,220,240,.12),inset 0 1px 0 rgba(255,255,255,.15);
+        }
+        .random-pick-info { min-width:0; flex:1; }
+        .random-pick-title { font-family:'HarmonyOS Sans',sans-serif;font-size:1.45rem;font-weight:600;color:#fff;letter-spacing:1.5px;margin-bottom:.35rem; }
+        .random-pick-sub { color:#a0d0dc;font-size:.9rem;letter-spacing:.5px; }
+        .random-pick-actions { display:flex;align-items:center;gap:.8rem;flex-shrink:0; }
+        .random-pick-btn {
+            min-width:118px;padding:.8rem 1.5rem;border-radius:40px;border:1px solid rgba(255,255,255,.18);
+            background:rgba(255,255,255,.08);color:#fff;font-family:'HarmonyOS Sans',sans-serif;
+            font-size:.95rem;font-weight:500;letter-spacing:.8px;text-align:center;text-decoration:none;
+            cursor:pointer;transition:all .3s ease;
+        }
+        .random-pick-btn:hover { background:rgba(120,220,240,.18);border-color:rgba(120,220,240,.45);transform:translateY(-2px); }
+        .random-pick-btn.beta { background:linear-gradient(135deg,rgba(120,220,240,.22),rgba(120,220,240,.10));border-color:rgba(120,220,240,.35); }
+        .random-pick-btn.beta::after {
+            content:'Beta';margin-left:.45rem;padding:.12rem .42rem;border-radius:6px;font-size:.65rem;
+            letter-spacing:.3px;background:rgba(126,224,240,.2);color:#a9ebf5;vertical-align:1px;
+        }
+        .random-pick-btn.disabled { opacity:.45;cursor:not-allowed;pointer-events:none;background:rgba(255,255,255,.04);color:rgba(255,255,255,.6); }
+        @media (max-width:700px) {
+            .random-pick-card { flex-direction:column;text-align:center;padding:1.8rem 1.5rem;gap:1rem; }
+            .random-pick-icon { width:64px;height:64px;font-size:2.3rem; }
+            .random-pick-title { font-size:1.25rem; }
+            .random-pick-actions { width:100%; }
+            .random-pick-btn { flex:1;min-width:0; }
+        }
+
         .poem-section { padding: 2.2rem 2rem; display: flex; flex-direction: column; gap: 1.5rem; }
         .poem-header { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; font-weight: 600; font-size: 1.6rem; color: #ffffff; letter-spacing: 2px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 1rem; flex-wrap: wrap; }
         .poem-header-left { display: flex; align-items: center; gap: 0.8rem; }
@@ -562,6 +603,19 @@
                 <a href="https://linan1479.github.io/ljmxtk/" class="core-btn" target="_blank" rel="noopener noreferrer">进入题库 →</a>
             </div>
 
+            <!-- 随机抽选 -->
+            <div class="random-pick-card">
+                <div class="random-pick-icon" aria-hidden="true">🎲</div>
+                <div class="random-pick-info">
+                    <div class="random-pick-title">随机抽选</div>
+                    <div class="random-pick-sub">快速随机抽取学生 · 请选择班级进入</div>
+                </div>
+                <div class="random-pick-actions">
+                    <span class="random-pick-btn disabled" aria-disabled="true">5班</span>
+                    <a class="random-pick-btn beta" href="https://linan1479.github.io/suiji/" target="_blank" rel="noopener noreferrer">9班</a>
+                </div>
+            </div>
+
             <div class="core-card core-card-wide">
                 <div class="core-icon">🚀</div>
                 <div class="core-card-wide-text">
@@ -605,6 +659,16 @@
             <div class="changelog-body">
                 <div class="changelog-inner">
                     <ul class="changelog-list">
+
+                        <li class="changelog-item">
+                            <div class="changelog-item-head">
+                                <span class="changelog-version">v1.3.5</span>
+                                <span class="changelog-date">2026-10-03</span>
+                            </div>
+                            <div class="changelog-lines">
+                                <div class="changelog-line"><span class="line-icon">🎲</span><span><strong>新增随机抽选：</strong>新增「随机抽选」功能模块，支持按班级进入随机抽取页面</span></div>
+                                                            </div>
+                        </li>
 
                         <li class="changelog-item">
                             <div class="changelog-item-head">
@@ -715,7 +779,7 @@
             </a>
         </div>
 
-        <div class="last-updated">页面最后更新于 2026 年 10 月 1 日</div>
+        <div class="last-updated">页面最后更新于 2026 年 10 月 3 日</div>
     </div>
 
     <!-- 外部诗词数据 -->
