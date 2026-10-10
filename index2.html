@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>系统维护中 · 语文资料汇总平台</title>
+
+    <link rel="icon" type="image/png" href="picture/favicon.png">
+    <link rel="apple-touch-icon" href="picture/favicon.png">
+
+    <style>
+        /* ============================================================
+           维护页面 · 与语文资料汇总平台设计语言一致
+           ============================================================ */
+
+        @font-face {
+            font-family: 'ZiHunBianTaoTi';
+            src: url('ZiHunBianTaoTi-2.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'PerfectDOSVGA437';
+            src: url('PerfectDOSVGA437.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* ---------- 基础变量（与主站一致） ---------- */
+        :root {
+            --surface-card: #ffffff;
+            --surface-subtle: #f3f7fa;
+            --surface-muted: #e9eff4;
+
+            --primary: #3d5a6b;
+            --primary-hover: #2f4858;
+            --primary-soft: #e3edf3;
+
+            --text-primary: #1f2e38;
+            --text-secondary: #556873;
+            --text-muted: #8a9aa5;
+
+            --border: #dce4e9;
+            --border-light: #e8eef2;
+
+            --radius-sm: 10px;
+            --radius-md: 14px;
+            --radius-lg: 18px;
+            --radius-xl: 26px;
+            --radius-full: 999px;
+
+            --shadow-sm: 0 1px 3px rgba(31, 46, 56, 0.05);
+            --shadow-md: 0 3px 10px rgba(31, 46, 56, 0.07);
+            --shadow-lg: 0 6px 20px rgba(31, 46, 56, 0.09);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* ---------- 浅色渐变背景（与主站一致） ---------- */
+        body {
+            min-height: 100vh;
+            background: linear-gradient(165deg,
+                #f2f7fa 0%,
+                #e8f0f6 25%,
+                #e2ecf3 50%,
+                #eaf2f7 75%,
+                #f4f8fb 100%);
+            background-attachment: fixed;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
+                         'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+            color: var(--text-primary);
+            padding: 3rem 1.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ============================================================
+           主卡片容器
+           ============================================================ */
+        .page {
+            max-width: 680px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* ---------- 维护卡片（与主站卡片风格一致） ---------- */
+        .maintenance-card {
+            background: var(--surface-card);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+            padding: 3.5rem 2.5rem 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .maintenance-card:hover {
+            border-color: var(--border);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        /* 图标区域 —— 与主站 icon 风格一致 */
+        .maintenance-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: var(--radius-lg);
+            background: var(--primary-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.2rem;
+            margin-bottom: 1.75rem;
+            color: var(--primary);
+            transition: transform 0.3s ease;
+        }
+
+        .maintenance-card:hover .maintenance-icon {
+            transform: scale(1.02);
+        }
+
+        /* 主标题 —— 沿用主站主标题字体 */
+        .maintenance-title {
+            font-family: 'ZiHunBianTaoTi', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', serif;
+            font-size: clamp(2.4rem, 6vw, 3.2rem);
+            font-weight: normal;
+            letter-spacing: 6px;
+            color: var(--primary);
+            line-height: 1.3;
+            margin-bottom: 0.75rem;
+        }
+
+        /* 描述文字 */
+        .maintenance-desc {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 520px;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        /* 进度条装饰（柔和） */
+        .progress-container {
+            width: 100%;
+            max-width: 400px;
+            height: 6px;
+            background: var(--surface-muted);
+            border-radius: var(--radius-full);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            width: 72%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), #5a7d8f);
+            border-radius: var(--radius-full);
+            box-shadow: 0 0 8px rgba(61, 90, 107, 0.25);
+            animation: progressPulse 2.5s infinite alternate;
+        }
+
+        @keyframes progressPulse {
+            0% { opacity: 0.8; box-shadow: 0 0 6px rgba(61, 90, 107, 0.2); }
+            100% { opacity: 1; box-shadow: 0 0 14px rgba(61, 90, 107, 0.35); }
+        }
+
+        /* 预估时间信息（仅保留预估时间） */
+        .eta-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+        }
+
+        .eta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: var(--surface-subtle);
+            padding: 0.65rem 1.4rem;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-light);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .eta-item:hover {
+            background: var(--surface-muted);
+            border-color: var(--border);
+        }
+
+        .eta-item .eta-icon {
+            font-size: 1.1rem;
+            line-height: 1;
+        }
+
+        /* 操作按钮组 —— 沿用主站 primary 按钮风格 */
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 0.5rem;
+            width: 100%;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.8rem 2rem;
+            border-radius: var(--radius-full);
+            font-family: inherit;
+            font-weight: 500;
+            font-size: 1rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--surface-subtle);
+            border: 1px solid var(--border-light);
+            color: var(--text-secondary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--surface-muted);
+            border-color: var(--border);
+            color: var(--text-primary);
+            transform: translateY(-1px);
+        }
+
+        /* 底部小提示（与主站 last-updated 风格类似） */
+        .footer-note {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-light);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+        }
+
+        .footer-note .powered-by {
+            display: inline-block;
+            margin-left: 0.6rem;
+            padding-left: 0.6rem;
+            border-left: 1px solid var(--border-light);
+            color: var(--primary);
+            font-family: 'PerfectDOSVGA437', monospace;
+            font-weight: normal;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+        }
+
+        /* ============================================================
+           响应式调整
+           ============================================================ */
+        @media (max-width: 700px) {
+            body {
+                padding: 2rem 1rem 1.5rem;
+            }
+
+            .maintenance-card {
+                padding: 2.5rem 1.5rem 2rem;
+            }
+
+            .maintenance-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 2.6rem;
+                margin-bottom: 1.25rem;
+            }
+
+            .maintenance-title {
+                font-size: 2rem;
+                letter-spacing: 4px;
+            }
+
+            .maintenance-desc {
+                font-size: 0.98rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .eta-group {
+                gap: 0.8rem;
+                margin-bottom: 1.8rem;
+            }
+
+            .eta-item {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .btn {
+                padding: 0.7rem 1.5rem;
+                font-size: 0.95rem;
+            }
+
+            .actions {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .footer-note {
+                font-size: 0.78rem;
+                flex-wrap: wrap;
+                gap: 0.3rem;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .maintenance-title {
+                font-size: 1.75rem;
+                letter-spacing: 3px;
+            }
+
+            .maintenance-desc {
+                font-size: 0.9rem;
+            }
+
+            .eta-item {
+                font-size: 0.8rem;
+                padding: 0.45rem 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== 主维护卡片 ==================== -->
+    <div class="page">
+        <div class="maintenance-card">
+            <!-- 图标 -->
+            <div class="maintenance-icon">
+                🛠️
+            </div>
+
+            <!-- 主标题 -->
+            <h1 class="maintenance-title">系统维护中</h1>
+
+            <!-- 描述 -->
+            <p class="maintenance-desc">
+                我们正在进行计划系统维护，以提供更优质、更稳定的服务。<br>感谢您的理解！
+            </p>
+
+            <!-- 进度条 -->
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+            </div>
+
+            <!-- 仅显示预估时间 -->
+            <div class="eta-group">
+                <div class="eta-item">
+                    <span class="eta-icon">⏳</span>
+                    <span>预计 2 小时内完成</span>
+                </div>
+            </div>
+
+            <!-- 操作按钮 -->
+            <div class="actions">
+                <a href="#" class="btn btn-primary" onclick="window.location.reload(); return false;">
+                    <span>🔄</span> 刷新页面
+                </a>
+                <a href="mailto:linan1125@outlook.com" class="btn btn-secondary">
+                    <span>📧</span> 联系支持
+                </a>
+            </div>
+
+            <!-- 底部小提示 -->
+            <div class="footer-note">
+                <span>🔒 常规维护中 · 维护后将自动恢复</span>
+                <span class="powered-by">Powered by linan</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 简单的控制台提示，保持与主站一致的调试风格
+        (function() {
+            console.log('%c🛠️ 维护页面已加载 · 感谢您的访问', 'color: #3d5a6b; font-size: 14px; font-weight: 500;');
+        })();
+    </script>
+</body>
+</html>
