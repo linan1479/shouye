@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>语文资料汇总平台</title>
 
-    <!-- ==================== 维护开关（新增） ==================== -->
+    <!-- ==================== 维护开关 ==================== -->
     <script src="config.js"></script>
     <script>
         if (window.IS_MAINTENANCE) {
@@ -16,6 +16,7 @@
 
     <link rel="icon" type="image/png" href="picture/favicon.png">
     <link rel="apple-touch-icon" href="picture/favicon.png">
+    <link rel="preload" href="ZiHunBianTaoTi-2.woff2" as="font" type="font/woff2" crossorigin>
 
     <style>
         /* ============================================================
@@ -24,7 +25,8 @@
 
         @font-face {
             font-family: 'ZiHunBianTaoTi';
-            src: url('ZiHunBianTaoTi-2.ttf') format('truetype');
+            src: url('ZiHunBianTaoTi-2.woff2') format('woff2'),
+                 url('ZiHunBianTaoTi-2.ttf') format('truetype');
             font-weight: normal;
             font-style: normal;
             font-display: swap;
@@ -572,7 +574,6 @@
             gap: 0.5rem;
         }
 
-        /* beta 标签（位于标题后） */
         .random-pick-beta {
             display: inline-flex;
             align-items: center;
@@ -600,7 +601,6 @@
             flex-shrink: 0;
         }
 
-        /* 两个按钮统一样式（柔和描边） */
         .random-pick-btn {
             display: inline-flex;
             align-items: center;
