@@ -5,12 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>语文资料汇总平台</title>
 
-    <!-- ==================== 维护开关 ==================== -->
-    <script src="config.js"></script>
+    <!-- ==================== 维护开关（动态加载，防缓存） ==================== -->
     <script>
-        if (window.IS_MAINTENANCE) {
-            location.replace('index2.html');
-        }
+        (function () {
+            var s = document.createElement('script');
+            s.src = 'config.js?t=' + Math.floor(Date.now() / 60000);
+            s.onload = function () {
+                if (window.IS_MAINTENANCE) {
+                    location.replace('index2.html');
+                }
+            };
+            document.head.appendChild(s);
+        })();
     </script>
     <!-- ==================== 维护开关结束 ==================== -->
 
