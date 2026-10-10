@@ -7,6 +7,8 @@
 
     <link rel="icon" type="image/png" href="picture/favicon.png">
     <link rel="apple-touch-icon" href="picture/favicon.png">
+    <link rel="preload" href="font/HarmonyOS_Sans_SC.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="font/Source Han Sans & Saira Hybrid-Regular - Hot.woff2" as="font" type="font/woff2" crossorigin>
 
     <style>
         /* ============================================================
@@ -14,16 +16,18 @@
            ============================================================ */
 
         @font-face {
-            font-family: 'ZiHunBianTaoTi';
-            src: url('ZiHunBianTaoTi-2.ttf') format('truetype');
+            font-family: 'HarmonyOS Sans SC';
+            src: url('font/HarmonyOS_Sans_SC.woff2') format('woff2'),
+                 url('font/HarmonyOS_Sans_SC.ttf') format('truetype');
             font-weight: normal;
             font-style: normal;
             font-display: swap;
         }
 
         @font-face {
-            font-family: 'PerfectDOSVGA437';
-            src: url('PerfectDOSVGA437.ttf') format('truetype');
+            font-family: 'Source Han Sans Saira';
+            src: url('font/Source Han Sans & Saira Hybrid-Regular - Hot.woff2') format('woff2'),
+                 url('font/Source Han Sans & Saira Hybrid-Regular - Hot.ttf') format('truetype');
             font-weight: normal;
             font-style: normal;
             font-display: swap;
@@ -55,6 +59,8 @@
             --shadow-sm: 0 1px 3px rgba(31, 46, 56, 0.05);
             --shadow-md: 0 3px 10px rgba(31, 46, 56, 0.07);
             --shadow-lg: 0 6px 20px rgba(31, 46, 56, 0.09);
+
+            --font-en: 'Source Han Sans Saira', sans-serif;
         }
 
         * {
@@ -77,7 +83,8 @@
                 #eaf2f7 75%,
                 #f4f8fb 100%);
             background-attachment: fixed;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
+            font-family: 'HarmonyOS Sans SC', 'HarmonyOS Sans', '鸿蒙黑体',
+                         -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
                          'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
             color: var(--text-primary);
             padding: 3rem 1.5rem 2rem;
@@ -87,6 +94,14 @@
             justify-content: center;
             position: relative;
             -webkit-font-smoothing: antialiased;
+        }
+
+        /* ---------- 英文翻译统一使用 Hybrid 字体 ---------- */
+        .en {
+            font-family: var(--font-en);
+            font-weight: normal;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
         }
 
         /* ============================================================
@@ -102,7 +117,7 @@
             gap: 2rem;
         }
 
-        /* ---------- 维护卡片（与主站卡片风格一致） ---------- */
+        /* ---------- 维护卡片 ---------- */
         .maintenance-card {
             background: var(--surface-card);
             border-radius: var(--radius-xl);
@@ -122,7 +137,7 @@
             transform: translateY(-2px);
         }
 
-        /* 图标区域 —— 与主站 icon 风格一致 */
+        /* 图标区域 */
         .maintenance-icon {
             width: 100px;
             height: 100px;
@@ -141,15 +156,26 @@
             transform: scale(1.02);
         }
 
-        /* 主标题 —— 沿用主站主标题字体 */
+        /* 主标题 —— 使用鸿蒙黑体 */
         .maintenance-title {
-            font-family: 'ZiHunBianTaoTi', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', serif;
+            font-family: 'HarmonyOS Sans SC', 'HarmonyOS Sans', '鸿蒙黑体',
+                         'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
             font-size: clamp(2.4rem, 6vw, 3.2rem);
-            font-weight: normal;
+            font-weight: 700;
             letter-spacing: 6px;
             color: var(--primary);
             line-height: 1.3;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* 标题下方的英文翻译 */
+        .maintenance-title-en {
+            font-family: var(--font-en);
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 1.25rem;
         }
 
         /* 描述文字 */
@@ -158,11 +184,22 @@
             color: var(--text-secondary);
             max-width: 520px;
             line-height: 1.7;
-            margin-bottom: 2rem;
+            margin-bottom: 0.6rem;
             font-weight: 400;
         }
 
-        /* 进度条装饰（柔和） */
+        /* 描述英文翻译 */
+        .maintenance-desc-en {
+            font-family: var(--font-en);
+            font-size: 0.85rem;
+            letter-spacing: 0.8px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            max-width: 520px;
+            margin-bottom: 2rem;
+        }
+
+        /* 进度条装饰 */
         .progress-container {
             width: 100%;
             max-width: 400px;
@@ -187,26 +224,25 @@
             100% { opacity: 1; box-shadow: 0 0 14px rgba(61, 90, 107, 0.35); }
         }
 
-        /* 预估时间信息（仅保留预估时间） */
+        /* 预估时间信息（中文 + 英文合并为同一胶囊） */
         .eta-group {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
+            gap: 0.5rem;
             margin-bottom: 2.5rem;
         }
 
         .eta-item {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.2rem;
             background: var(--surface-subtle);
-            padding: 0.65rem 1.4rem;
-            border-radius: var(--radius-full);
+            padding: 0.7rem 1.5rem;
+            border-radius: var(--radius-lg);
             border: 1px solid var(--border-light);
-            font-size: 0.95rem;
-            color: var(--text-secondary);
             transition: background 0.2s ease, border-color 0.2s ease;
         }
 
@@ -215,12 +251,29 @@
             border-color: var(--border);
         }
 
+        .eta-item-main {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
         .eta-item .eta-icon {
             font-size: 1.1rem;
             line-height: 1;
         }
 
-        /* 操作按钮组 —— 沿用主站 primary 按钮风格 */
+        /* eta 的英文翻译（胶囊内） */
+        .eta-item-en {
+            font-family: var(--font-en);
+            font-size: 0.75rem;
+            letter-spacing: 0.8px;
+            color: var(--text-muted);
+            line-height: 1.3;
+        }
+
+        /* 操作按钮组 */
         .actions {
             display: flex;
             flex-wrap: wrap;
@@ -270,7 +323,16 @@
             transform: translateY(-1px);
         }
 
-        /* 底部小提示（与主站 last-updated 风格类似） */
+        /* 按钮内的英文小字 */
+        .btn-en {
+            font-family: var(--font-en);
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            opacity: 0.78;
+            margin-left: 0.15rem;
+        }
+
+        /* 底部小提示 */
         .footer-note {
             margin-top: 2rem;
             padding-top: 1.5rem;
@@ -279,10 +341,18 @@
             color: var(--text-muted);
             letter-spacing: 0.5px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
             width: 100%;
+        }
+
+        .footer-note-line {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
 
         .footer-note .powered-by {
@@ -291,7 +361,7 @@
             padding-left: 0.6rem;
             border-left: 1px solid var(--border-light);
             color: var(--primary);
-            font-family: 'PerfectDOSVGA437', monospace;
+            font-family: var(--font-en);
             font-weight: normal;
             letter-spacing: 0.5px;
             font-size: 0.9rem;
@@ -321,19 +391,31 @@
                 letter-spacing: 4px;
             }
 
+            .maintenance-title-en {
+                font-size: 0.85rem;
+                letter-spacing: 1.5px;
+            }
+
             .maintenance-desc {
                 font-size: 0.98rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .maintenance-desc-en {
+                font-size: 0.78rem;
                 margin-bottom: 1.5rem;
             }
 
-            .eta-group {
-                gap: 0.8rem;
-                margin-bottom: 1.8rem;
+            .eta-item {
+                padding: 0.6rem 1.1rem;
             }
 
-            .eta-item {
-                padding: 0.5rem 1rem;
+            .eta-item-main {
                 font-size: 0.85rem;
+            }
+
+            .eta-item-en {
+                font-size: 0.7rem;
             }
 
             .btn {
@@ -352,8 +434,6 @@
 
             .footer-note {
                 font-size: 0.78rem;
-                flex-wrap: wrap;
-                gap: 0.3rem;
             }
         }
 
@@ -367,9 +447,12 @@
                 font-size: 0.9rem;
             }
 
-            .eta-item {
+            .eta-item-main {
                 font-size: 0.8rem;
-                padding: 0.45rem 0.9rem;
+            }
+
+            .eta-item-en {
+                font-size: 0.65rem;
             }
         }
     </style>
@@ -384,12 +467,23 @@
                 🛠️
             </div>
 
-            <!-- 主标题 -->
+            <!-- 主标题（中文） -->
             <h1 class="maintenance-title">系统维护中</h1>
 
-            <!-- 描述 -->
+            <!-- 主标题的英文翻译 -->
+            <div class="maintenance-title-en">
+                System Under Maintenance
+            </div>
+
+            <!-- 描述（中文） -->
             <p class="maintenance-desc">
                 我们正在进行计划系统维护，以提供更优质、更稳定的服务。<br>感谢您的理解！
+            </p>
+
+            <!-- 描述的英文翻译 -->
+            <p class="maintenance-desc-en">
+                We are performing scheduled system maintenance<br>
+                to provide better and more stable service. Thank you for your patience.
             </p>
 
             <!-- 进度条 -->
@@ -397,28 +491,42 @@
                 <div class="progress-bar"></div>
             </div>
 
-            <!-- 仅显示预估时间 -->
+            <!-- 预估时间（中文 + 英文在同一胶囊内） -->
             <div class="eta-group">
                 <div class="eta-item">
-                    <span class="eta-icon">⏳</span>
-                    <span>预计 2 小时内完成</span>
+                    <div class="eta-item-main">
+                        <span class="eta-icon">⏳</span>
+                        <span>预计 2 小时内完成</span>
+                    </div>
+                    <div class="eta-item-en">
+                        Estimated completion within 2 hours
+                    </div>
                 </div>
             </div>
 
-            <!-- 操作按钮 -->
+            <!-- 操作按钮（按钮内附英文小字） -->
             <div class="actions">
                 <a href="#" class="btn btn-primary" onclick="window.location.reload(); return false;">
                     <span>🔄</span> 刷新页面
+                    <span class="btn-en">REFRESH</span>
                 </a>
                 <a href="mailto:linan1125@outlook.com" class="btn btn-secondary">
                     <span>📧</span> 联系支持
+                    <span class="btn-en">CONTACT</span>
                 </a>
             </div>
 
             <!-- 底部小提示 -->
             <div class="footer-note">
-                <span>🔒 常规维护中 · 维护后将自动恢复</span>
-                <span class="powered-by">Powered by linan</span>
+                <div class="footer-note-line">
+                    <span>🔒 常规维护中 · 维护后将自动恢复</span>
+                </div>
+                <div class="footer-note-line">
+                    <span class="en">Routine maintenance in progress · Auto-recovery after completion</span>
+                </div>
+                <div class="footer-note-line">
+                    <span class="powered-by">Powered by linan</span>
+                </div>
             </div>
         </div>
     </div>
@@ -427,6 +535,7 @@
         // 简单的控制台提示，保持与主站一致的调试风格
         (function() {
             console.log('%c🛠️ 维护页面已加载 · 感谢您的访问', 'color: #3d5a6b; font-size: 14px; font-weight: 500;');
+            console.log('%cSystem Under Maintenance · Powered by linan', 'color: #8a9aa5; font-family: "Source Han Sans Saira", sans-serif;');
         })();
     </script>
 </body>

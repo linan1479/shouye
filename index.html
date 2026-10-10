@@ -16,7 +16,8 @@
 
     <link rel="icon" type="image/png" href="picture/favicon.png">
     <link rel="apple-touch-icon" href="picture/favicon.png">
-    <link rel="preload" href="ZiHunBianTaoTi-2.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="font/ZiHunBianTaoTi-2.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="font/HarmonyOS_Sans_SC.woff2" as="font" type="font/woff2" crossorigin>
 
     <style>
         /* ============================================================
@@ -25,8 +26,8 @@
 
         @font-face {
             font-family: 'ZiHunBianTaoTi';
-            src: url('ZiHunBianTaoTi-2.woff2') format('woff2'),
-                 url('ZiHunBianTaoTi-2.ttf') format('truetype');
+            src: url('font/ZiHunBianTaoTi-2.woff2') format('woff2'),
+                 url('font/ZiHunBianTaoTi-2.ttf') format('truetype');
             font-weight: normal;
             font-style: normal;
             font-display: swap;
@@ -34,7 +35,17 @@
 
         @font-face {
             font-family: 'PerfectDOSVGA437';
-            src: url('PerfectDOSVGA437.ttf') format('truetype');
+            src: url('font/PerfectDOSVGA437.woff2') format('woff2'),
+                 url('font/PerfectDOSVGA437.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'HarmonyOS Sans SC';
+            src: url('font/HarmonyOS_Sans_SC.woff2') format('woff2'),
+                 url('font/HarmonyOS_Sans_SC.ttf') format('truetype');
             font-weight: normal;
             font-style: normal;
             font-display: swap;
@@ -66,6 +77,11 @@
             --shadow-sm: 0 1px 3px rgba(31, 46, 56, 0.05);
             --shadow-md: 0 3px 10px rgba(31, 46, 56, 0.07);
             --shadow-lg: 0 6px 20px rgba(31, 46, 56, 0.09);
+
+            /* 鸿蒙黑体字族 */
+            --font-harmony: 'HarmonyOS Sans SC', 'HarmonyOS Sans', '鸿蒙黑体',
+                            'PingFang SC', 'Microsoft YaHei', -apple-system,
+                            BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
 
         * {
@@ -100,7 +116,7 @@
         }
 
         /* ============================================================
-           导航栏
+           导航栏（字体改为鸿蒙黑体）
            ============================================================ */
         .navbar {
             position: fixed;
@@ -152,8 +168,10 @@
             padding: 0.7rem 1.4rem;
             border-radius: var(--radius-full);
             color: var(--text-secondary);
+            font-family: var(--font-harmony);
             font-size: 1rem;
             font-weight: 500;
+            letter-spacing: 0.3px;
             text-decoration: none;
             white-space: nowrap;
             transition: color 0.25s ease;
@@ -766,13 +784,16 @@
             padding: 2rem 2.25rem;
         }
 
+        /* 朝代作者 —— 改用鸿蒙黑体 */
         .poem-dynasty-author {
+            font-family: var(--font-harmony);
             font-size: 0.95rem;
             color: var(--primary);
             letter-spacing: 0.5px;
             margin-bottom: 0.5rem;
         }
 
+        /* 题目 —— 保持 ZiHun 字体不变 */
         .poem-title {
             font-family: 'ZiHunBianTaoTi', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', serif;
             font-size: 1.9rem;
@@ -783,7 +804,9 @@
             line-height: 1.4;
         }
 
+        /* 诗词正文 —— 改用鸿蒙黑体 */
         .poem-content {
+            font-family: var(--font-harmony);
             font-size: 1.15rem;
             line-height: 2.1;
             color: var(--text-secondary);
