@@ -296,7 +296,7 @@
             font-size: 1rem;
             text-decoration: none;
             cursor: pointer;
-            transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+            transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
             border: none;
         }
 
@@ -506,8 +506,8 @@
 
             <!-- 操作按钮（按钮内附英文小字） -->
             <div class="actions">
-                <a href="#" class="btn btn-primary" onclick="window.location.reload(); return false;">
-                    <span>🔄</span> 刷新页面
+                <a href="#" class="btn btn-primary" id="checkStatusBtn">
+                    <span>🔄</span> 检查状态
                     <span class="btn-en">REFRESH</span>
                 </a>
                 <a href="mailto:linan1125@outlook.com" class="btn btn-secondary">
@@ -536,6 +536,41 @@
         (function() {
             console.log('%c🛠️ 维护页面已加载 · 感谢您的访问', 'color: #3d5a6b; font-size: 14px; font-weight: 500;');
             console.log('%cSystem Under Maintenance · Powered by linan', 'color: #8a9aa5; font-family: "Source Han Sans Saira", sans-serif;');
+        })();
+
+        // ==================== 检查状态按钮 ====================
+        (function () {
+            var btn = document.getElementById('checkStatusBtn');
+            if (!btn) return;
+
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // 禁用按钮，防止重复点击
+                btn.style.pointerEvents = 'none';
+                btn.style.opacity = '0.6';
+
+                // 带时间戳重新拉取 config.js，跳过缓存
+                var s = document.createElement('script');
+                s.src = 'config.js?t=' + Date.now();
+                s.onload = function () {
+                    if (window.IS_MAINTENANCE) {
+                        // 仍是维护状态 → 恢复按钮，原地刷新
+                        btn.style.pointerEvents = '';
+                        btn.style.opacity = '';
+                        location.reload();
+                    } else {
+                        // 已改回 false → 跳回首页并带 admin=off 参数
+                        location.href = 'index.html?admin=off';
+                    }
+                };
+                s.onerror = function () {
+                    btn.style.pointerEvents = '';
+                    btn.style.opacity = '';
+                    alert('config.js 加载失败，请检查文件是否存在');
+                };
+                document.head.appendChild(s);
+            });
         })();
     </script>
 </body>

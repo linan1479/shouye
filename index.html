@@ -5,9 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>语文资料汇总平台</title>
 
-    <!-- ==================== 维护开关（动态加载，防缓存） ==================== -->
+    <!-- ==================== 维护开关（动态加载 + 本地记忆） ==================== -->
     <script>
         (function () {
+            var params = new URLSearchParams(location.search);
+
+            // 1. 管理员从维护页跳回来时带的参数
+            if (params.get('admin') === 'off') {
+                try { localStorage.setItem('maintenance', 'off'); } catch (e) {}
+                location.replace(location.pathname);
+                return;
+            }
+            if (params.get('admin') === 'on') {
+                try { localStorage.setItem('maintenance', 'on'); } catch (e) {}
+                location.replace(location.pathname);
+                return;
+            }
+
+            // 2. 读本地状态（管理员手动切换过就优先用它）
+            var local = null;
+            try { local = localStorage.getItem('maintenance'); } catch (e) {}
+
+            if (local === 'on') {
+                location.replace('index2.html');
+                return;
+            }
+            if (local === 'off') {
+                return; // 放行，显示正常首页
+            }
+
+            // 3. 否则读 config.js
             var s = document.createElement('script');
             s.src = 'config.js?t=' + Math.floor(Date.now() / 60000);
             s.onload = function () {
