@@ -5,56 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>语文资料汇总平台</title>
 
-<!-- ==================== 维护开关 ==================== -->
-<script>
-    (function () {
-        var params = new URLSearchParams(location.search);
-
-        // 1. URL 参数：管理员主动切换（写入 localStorage 后清掉参数）
-        if (params.get('admin') === 'off') {
-            try { localStorage.setItem('maintenance', 'off'); } catch (e) {}
-            location.replace(location.pathname);
-            return;
-        }
-        if (params.get('admin') === 'on') {
-            try { localStorage.setItem('maintenance', 'on'); } catch (e) {}
-            location.replace(location.pathname);
-            return;
-        }
-
-        // 2. 先读 config.js —— 它是全局真相，永远优先
-        var s = document.createElement('script');
-        s.src = 'config.js?t=' + Date.now();   // 每次都拿最新
-        s.onload = function () {
-            if (window.IS_MAINTENANCE === true) {
-                // config.js 说维护 → 直接进维护页
-                location.replace('index2.html');
-                return;
-            }
-            if (window.IS_MAINTENANCE === false) {
-                // config.js 说正常 → 清掉本地缓存，正常显示
-                try { localStorage.removeItem('maintenance'); } catch (e) {}
-                return;
-            }
-            // 3. config.js 没定义 → 用本地状态兜底
-            fallbackToLocal();
-        };
-        s.onerror = function () {
-            // config.js 加载失败 → 用本地状态兜底
-            fallbackToLocal();
-        };
-        document.head.appendChild(s);
-
-        function fallbackToLocal() {
-            var local = null;
-            try { local = localStorage.getItem('maintenance'); } catch (e) {}
-            if (local === 'on') {
-                location.replace('index2.html');
-            }
-        }
-    })();
-</script>
-<!-- ==================== 维护开关结束 ==================== -->
+    <!-- ==================== 维护开关 ==================== -->
+    <script>
+        (function () {
+            var s = document.createElement('script');
+            s.src = 'config.js?t=' + Date.now();
+            s.onload = function () {
+                console.log('读到 IS_MAINTENANCE =', window.IS_MAINTENANCE);
+                if (window.IS_MAINTENANCE === true) {
+                    location.replace('index2.html');
+                }
+            };
+            s.onerror = function () {
+                console.error('config.js 加载失败');
+            };
+            document.head.appendChild(s);
+        })();
+    </script>
+    <!-- ==================== 维护开关结束 ==================== -->
 
     <link rel="icon" type="image/png" href="picture/favicon.png">
     <link rel="apple-touch-icon" href="picture/favicon.png">
